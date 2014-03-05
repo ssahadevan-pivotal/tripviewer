@@ -173,7 +173,7 @@ function renderTile(div) {
 
 
 function drawMap(trip) {
-  var map = L.mapbox.map('map' + trip.id, 'automatic.h5kpm228')
+  var map = L.mapbox.map('map' + trip.id, 'examples.map-9ijuk24y')
 
   if (trip.path) {
     var polyline = L.Polyline.fromEncoded(trip.path, {color: '#08b1d5', opacity: 0.9});
