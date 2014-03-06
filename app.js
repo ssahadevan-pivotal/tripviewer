@@ -32,6 +32,10 @@ app.use(express.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
+if (app.get('env') !== 'development') {
+	app.all('*', routes.force_https);
+}
+
 app.get('/', routes.index);
 
 app.get('/authorize/', oauth.authorize);
@@ -44,9 +48,9 @@ app.get('/download/trips.csv', oauth.authenticate, trips.downloadTripsCSV);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 /// error handlers
@@ -54,22 +58,21 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
+	app.use(function(err, req, res, next) {
+		res.render('error', {
+			message: err.message,
+			error: err
+		});
+	});
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
-
 
 module.exports = app;
