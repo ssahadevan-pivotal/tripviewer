@@ -257,6 +257,8 @@ function formatTimeTable(time, timezone) {
 
 
 function formatTimeTile(time, timezone) {
+  console.log(time)
+  console.log(timezone)
   if (timezone) {
     return moment(time).tz(timezone).format('MMM D, YYYY<br> h:mm A');
   } else {

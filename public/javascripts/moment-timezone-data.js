@@ -930,6 +930,12 @@ moment.tz.add({
             "-8 CA P%sT 1967 -8",
             "-8 US P%sT"
         ],
+        "US/Pacific": [
+            "-7:52:58 - LMT 1883_10_18_12_7_2 -7:52:58",
+            "-8 US P%sT 1946 -8",
+            "-8 CA P%sT 1967 -8",
+            "-8 US P%sT"
+        ],
         "America/Maceio": [
             "-2:22:52 - LMT 1914 -2:22:52",
             "-3 Brazil BR%sT 1990_8_17 -3",
