@@ -248,20 +248,18 @@ function hideAlert() {
 
 
 function formatTimeTable(time, timezone) {
-  if (timezone) {
+  try {
     return moment(time).tz(timezone).format('YYYY-MM-DD h:mm A');
-  } else {
+  } catch(e) {
     return moment(time).format('YYYY-MM-DD h:mm A');
   }
 }
 
 
 function formatTimeTile(time, timezone) {
-  console.log(time)
-  console.log(timezone)
-  if (timezone) {
+  try {
     return moment(time).tz(timezone).format('MMM D, YYYY<br> h:mm A');
-  } else {
+  } catch(e) {
     return moment(time).format('MMM D, YYYY<br> h:mm A');
   }
 }
