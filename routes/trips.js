@@ -140,9 +140,9 @@ function tripToArray(t) {
 
 
 function formatTime(time, timezone) {
-  if (timezone) {
+  try {
     return moment(time).tz(timezone).format('YYYY-MM-DD h:mm A');
-  } else {
+  } catch(e) {
     return moment(time).format('YYYY-MM-DD h:mm A');
   }
 }
