@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  #summary
+    h2 Summary
+    .col-sm-4
+      #overall.panel.panel-default
+        .panel-heading Total Automatic Stats
+        .panel-body
+          ul.list-group
+            li.distance.list-group-item <span class="badge"></span> Miles Driven
+            li.duration.list-group-item <span class="badge"></span> Minutes Driven
+            li.trip_count.list-group-item <span class="badge"></span> Trips Taken
+            li.fuel_volume_gal.list-group-item <span class="badge"></span> Gallons of Fuel
+            li.fuel_cost_usd.list-group-item <span class="badge"></span> Fuel Cost
+    .col-sm-8
+      #graphs.panel.panel-default
+        .panel-heading Monthly Driving
+        .panel-body.graph
+
+  .loading Loading...
+
+block scripts
+  script(src="/javascripts/d3.min.js")
+  script(src="/javascripts/summary.js")

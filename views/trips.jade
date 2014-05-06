@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .btn-group.display-type
+    a.btn.btn-default.active(href="#" data-type="tile") Tiles
+    a.btn.btn-default(href="#" data-type="table") Table
+  #trips
+  .loading Loading...
+
+block scripts
+  script(src="/javascripts/trips.js")

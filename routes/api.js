@@ -20,6 +20,22 @@ exports.trips = function(req, res) {
 }
 
 
+exports.trip = function(req, res) {
+  request.get({
+    uri: 'https://api.automatic.com/v1/trips/' + req.params.id,
+    headers: {Authorization: 'token ' + req.session.access_token}
+  }, function(e, r, body) {
+    try {
+      res.json(JSON.parse(body));
+    } catch(e) {
+      console.log("error: " + e);
+      res.json(400, {"message": "Invalid access_token"});
+    }
+  });
+}
+
+
+
 exports.downloadTripsJSON = function(req, res) {
   try {
     downloadAllTrips(req, function(e, trips) {

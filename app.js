@@ -15,7 +15,7 @@ nconf.set('AUTOMATIC_SCOPES', 'scope:trip:summary scope:location scope:vehicle s
 
 var routes = require('./routes');
 var oauth = require('./routes/oauth');
-var trips = require('./routes/trips');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -34,17 +34,22 @@ app.use(app.router);
 
 if (app.get('env') !== 'development') {
 	app.all('*', routes.force_https);
+} else {
+	app.all('*', routes.check_dev_token);
 }
 
 app.get('/', routes.index);
+app.get('/trips', oauth.authenticate, routes.trips);
+app.get('/trips/:id', oauth.authenticate, routes.trip);
 
 app.get('/authorize/', oauth.authorize);
 app.get('/logout/', oauth.logout);
 app.get('/redirect/', oauth.redirect);
 
-app.get('/api/trips/', oauth.authenticate, trips.trips);
-app.get('/download/trips.json', oauth.authenticate, trips.downloadTripsJSON);
-app.get('/download/trips.csv', oauth.authenticate, trips.downloadTripsCSV);
+app.get('/api/trips/', oauth.authenticate, api.trips);
+app.get('/api/trips/:id', oauth.authenticate, api.trip);
+app.get('/download/trips.json', oauth.authenticate, api.downloadTripsJSON);
+app.get('/download/trips.csv', oauth.authenticate, api.downloadTripsCSV);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

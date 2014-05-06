@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  a.back.btn.btn-default(href="/trips") <span class="glyphicon glyphicon-chevron-left"></span> Back
+  #trip
+  .loading Loading...
+
+block scripts
+  script(type='text/javascript').
+    var trip_id = "!{trip_id}";
+
+  script(src="/javascripts/trip.js")
