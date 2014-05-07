@@ -2,13 +2,15 @@ _.templateSettings = {
   interpolate : /\{\{(.+?)\}\}/g
 };
 
-var trip_template = _.template('<h2>{{title}}</h2><div class="map" id="map{{id}}"></div><div class="tripSummary">' +
-  '<div class="times"><div class="startTime">{{start_time}}</div><div class="duration">{{duration}}</div><div class="endTime">{{end_time}}</div></div>' +
-  '<div class="tripLine"><div></div><div></div></div><div class="endLocation">{{end_location}}</div>' +
-  '<div class="tripSummaryBox"><div class="distance">{{distance}} Miles</div><div class="mpg">{{average_mpg}} MPG</div>' +
-  '<div class="fuelCost">${{fuel_cost_usd}}</div><div class="hardBrakes {{hard_brakes_class}}">{{hard_brakes}}</div>' +
-  '<div class="hardAccels {{hard_accels_class}}">{{hard_accels}}</div><div class="durationOver70 {{speeding_class}}">{{speeding}}</div>' +
-  '</div><div class="startLocation">{{start_location}}</div></div>');
+var trip_template = _.template('<h2>{{title}}</h2><div class="map" id="map{{id}}"></div><div class="trip tile">' +
+    '<div class="times"><div class="endTime">{{end_time}}</div>' +
+    '<div class="duration">{{duration}}</div><div class="startTime">{{start_time}}</div>' +
+    '<div class="tripLine"><div></div><div></div></div></div>' +
+    '<div class="tripSummary"><div class="endLocation">{{end_location}}</div><div class="tripSummaryBox">' +
+    '<div class="distance">{{distance}}</div><div class="hardBrakes {{hard_brakes_class}}">{{hard_brakes}}</div>' +
+    '<div class="mpg">{{average_mpg}}</div><div class="hardAccels {{hard_accels_class}}">{{hard_accels}}</div>' +
+    '<div class="fuelCost">{{fuel_cost_usd}}</div><div class="durationOver70 {{speeding_class}}">{{speeding}}</div></div>' +
+    '<div class="startLocation">{{start_location}}</div></div><a class="btn btn-primary btn-share"><i class="glyphicon glyphicon-share"></i> Share This Trip</a></div></div>');
 
 if(trip_id) {
   var cached = sessionStorage.getItem(trip_id);

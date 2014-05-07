@@ -122,7 +122,7 @@ function drawMap(trip) {
   if (trip.path) {
     var polyline = L.Polyline.fromEncoded(trip.path, {color: '#08b1d5', opacity: 0.9});
 
-    map.fitBounds(polyline.getBounds());
+    map.fitBounds(polyline.getBounds()).zoomOut();
 
     polyline.addTo(map);
   } else {

@@ -168,7 +168,6 @@ body {
   font-size: 12px;
   padding: 10px;
   position: relative;
-  pointer: cursor;
 }
 
 .trip.tile .duration {
@@ -479,35 +478,63 @@ body {
 }
 
 #trip h2 {
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 #trip .map {
-  width: 600px;
-  height: 400px;
+  width: 500px;
+  height: 360px;
   float: left;
 }
 
-#trip .tripSummary {
-  width: 335px;
+#trip .trip.tile {
+  width: 435px;
+  height: 360px;
   float: right;
+  margin: 0;
+  position: relative;
 }
 
-#trip .times .startTime {
-  width: 115px;
+#trip .trip.tile .tripSummary {
+  width: 332px;
+}
+
+#trip .trip.tile .distance,
+#trip .trip.tile .mpg,
+#trip .trip.tile .fuelCost {
   display: inline-block;
+  float: none;
+  text-align: left;
+  width: 60%;
 }
 
-#trip .times .endTime {
-  width: 115px;
-  padding-left: 20px;
-  display: inline-block;
+#trip .trip.tile .hardBrakes,
+#trip .trip.tile .hardAccels,
+#trip .trip.tile .durationOver70 {
+    display: inline-block;
+    float: none;
+    vertical-align: 7px;
+    margin-right: 70px;
 }
 
-#trip .times .duration {
-  display: inline-block;
+#trip .trip.tile .duration {
+  font-size: 16px;
+  margin-top: 76px;
 }
 
+#trip .trip.tile .startTime {
+  margin-top: 76px;
+}
+
+#trip .trip.tile .tripLine {
+  height: 227px;
+}
+
+#trip .btn-share {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
 
 .axis path,
 .axis line {
