@@ -26,6 +26,11 @@ function formatDuration(ms) {
 }
 
 
+function formatDurationHours(ms) {
+  return Math.round(ms / (60 * 60 * 1000) * 100) / 100;
+}
+
+
 function formatDistance(distance) {
   //convert from m to mi
   var distance_mi = distance / 1609.34;

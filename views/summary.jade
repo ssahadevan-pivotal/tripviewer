@@ -16,7 +16,15 @@ block content
     .col-sm-8
       #graphs.panel.panel-default
         .panel-heading Monthly Driving
-        .panel-body.graph
+        .panel-body
+          .btn-group.graph-buttons
+            button.btn.btn-default.active(type="button" data-graph-type="distance") Miles
+            button.btn.btn-default(type="button" data-graph-type="duration") Hours
+            button.btn.btn-default(type="button" data-graph-type="trip_count") Trips
+            button.btn.btn-default(type="button" data-graph-type="fuel_cost_usd") Fuel Cost
+            button.btn.btn-default(type="button" data-graph-type="fuel_volume_gal") Fuel Volume
+
+          .graph
 
   .loading Loading...
 

@@ -1,6 +1,14 @@
-var data;
+var data,
+    weekly;
 
 getSummary();
+
+
+$('.graph-buttons button').click(function() {
+  var type = $(this).data('graph-type');
+  $(this).addClass('active').siblings().removeClass('active');
+  drawGraph(prepData(type));
+});
 
 function getSummary() {
   $.getJSON('/download/trips.json')
@@ -29,17 +37,19 @@ function summarizeData(d) {
 
 
 function processResults() {
-  var weekly = d3.nest()
+  weekly = d3.nest()
     .key(function(d) { return moment(d.start_time).format('YYYY w'); })
     .rollup(summarizeData)
     .entries(data);
+
+  weekly = weekly.reverse();
 
   var totals = d3.nest()
     .rollup(summarizeData)
     .entries(data);
 
   showOverview(totals);
-  drawGraphs(weekly);
+  drawGraph(prepData('distance'));
 }
 
 
@@ -52,15 +62,51 @@ function showOverview(totals) {
 }
 
 
-function drawGraphs(weekly) {
-  console.log(weekly)
+function prepData(type) {
+  var graphData = {},
+      formatter;
+  if (type == 'distance') {
+    formatter = function(d) {
+      return parseFloat(formatDistance(d.values.distance_m));
+    };
+    graphData.yAxisLabel = 'Distance (mi)';
+  } else if (type == 'duration') {
+    formatter = function(d) {
+      return formatDurationHours(d.values.duration);
+    };
+    graphData.yAxisLabel = 'Drive Time (hours)';
+  } else if (type == 'trip_count') {
+    formatter = function(d) {
+      return d.values.trip_count;
+    };
+    graphData.yAxisLabel = 'Trip Count';
+  } else if (type == 'fuel_cost_usd') {
+    formatter = function(d) {
+      return d.values.fuel_cost_usd;
+    };
+    graphData.yAxisLabel = 'Fuel Cost (USD)';
+  } else if (type == 'fuel_volume_gal') {
+    formatter = function(d) {
+      return d.values.fuel_volume_gal;
+    };
+    graphData.yAxisLabel = 'Fuel Volume (gal)';
+  }
 
-  var data = weekly.reverse();
-
-  data.forEach(function(d) {
-    d.value = parseFloat(formatDistance(d.values.distance_m));
-    d.key = moment(d.key, 'YYYY w').toDate();
+  graphData.data = weekly.map(function(d) {
+    return {
+      value: formatter(d),
+      key: moment(d.key, 'YYYY w').toDate()
+    }
   });
+
+  return graphData;
+}
+
+
+function drawGraph(graphData) {
+  $('#graphs .graph').empty();
+
+  console.log(graphData)
 
   var margin = {top: 20, right: 20, bottom: 30, left: 50},
       width = 600 - margin.left - margin.right,
@@ -68,12 +114,12 @@ function drawGraphs(weekly) {
       bisectDate = d3.bisector(function(d) { return d.value; }).left;
 
   var x = d3.time.scale()
-      .domain([_.first(data).key, _.last(data).key])
+      .domain([_.first(graphData.data).key, _.last(graphData.data).key])
       .range([0, width]);
 
   var y = d3.scale.linear()
       .range([height, 0])
-      .domain([0, d3.max(_.pluck(data, 'value'))]);
+      .domain([0, d3.max(_.pluck(graphData.data, 'value'))]);
 
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -108,10 +154,10 @@ function drawGraphs(weekly) {
       .attr("y", 6)
       .attr("dy", "-3.2em")
       .style("text-anchor", "end")
-      .text("Miles");
+      .text(graphData.yAxisLabel);
 
   svg.append("path")
-      .datum(data)
+      .datum(graphData.data)
       .attr("class", "line")
       .attr("d", line);
 }
