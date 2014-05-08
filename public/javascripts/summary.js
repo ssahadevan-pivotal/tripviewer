@@ -127,7 +127,7 @@ function drawGraph(graphData) {
   var xAxis = d3.svg.axis()
       .scale(x)
       .orient("bottom")
-      .ticks(6);
+      .ticks(d3.time.month);
 
   var yAxis = d3.svg.axis()
       .scale(y)
@@ -173,8 +173,14 @@ function drawGraph(graphData) {
       .attr("r", 4.5);
 
   focus.append("text")
+      .attr('class', 'value')
       .attr("x", 9)
       .attr("dy", ".35em");
+
+  focus.append("text")
+      .attr('class', 'key')
+      .attr("x", 9)
+      .attr("dy", "1.3em");
 
   svg.append("rect")
       .attr("class", "overlay")
@@ -191,6 +197,7 @@ function drawGraph(graphData) {
         d1 = graphData.data[i],
         d = x0 - d0.key > d1.key - x0 ? d1 : d0;
     focus.attr("transform", "translate(" + x(d.key) + "," + y(d.value) + ")");
-    focus.select("text").text(graphData.unitFomatter(d));
+    focus.select("text.value").html(graphData.unitFomatter(d));
+    focus.select("text.key").html(moment(d.key).format('MMM D, YYYY'));
   }
 }
