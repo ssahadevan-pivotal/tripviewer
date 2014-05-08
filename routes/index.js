@@ -1,6 +1,6 @@
 exports.index = function(req, res){
   if(req.session && req.session.access_token) {
-    res.render('summary', {loggedIn: true});
+    res.render('summary', {loggedIn: true, menu: 'summary'});
   } else {
     res.render('index');
   }
@@ -8,12 +8,12 @@ exports.index = function(req, res){
 
 
 exports.trips = function(req, res){
-  res.render('trips', {loggedIn: true});
+  res.render('trips', {loggedIn: true, menu: 'trips'});
 };
 
 
 exports.trip = function(req, res){
-  res.render('trip', {trip_id: req.params.id, loggedIn: true});
+  res.render('trip', {trip_id: req.params.id, loggedIn: true, menu: 'trips'});
 };
 
 

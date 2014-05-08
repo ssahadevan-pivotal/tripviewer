@@ -28,9 +28,9 @@ html(lang="en")
 
           .collapse.navbar-collapse
             ul.nav.navbar-nav
-              li
+              li(class=(menu === 'summary' ? 'active' : ''))
                 a(href="/") Summary
-              li
+              li(class=(menu === 'trips' ? 'active' : ''))
                 a(href="/trips") Trips
               li.dropdown
                 a#export.dropdown-toggle(href="#" data-toggle="dropdown") <span>Export All</span> <b class="caret"></b>

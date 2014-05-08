@@ -39,7 +39,6 @@ $(window).scroll(function() {
 });
 
 $('.display-type a').click(function() {
-  showLoading();
   viewType = $(this).data('type');
   $(this).addClass('active').siblings().removeClass('active')
   renderViewType();

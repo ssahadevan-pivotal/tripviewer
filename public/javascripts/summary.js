@@ -108,7 +108,7 @@ function drawGraph(graphData) {
 
   console.log(graphData)
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  var margin = {top: 20, right: 40, bottom: 30, left: 50},
       width = 600 - margin.left - margin.right,
       height = 222 - margin.top - margin.bottom,
       bisectDate = d3.bisector(function(d) { return d.value; }).left;
@@ -128,7 +128,8 @@ function drawGraph(graphData) {
 
   var yAxis = d3.svg.axis()
       .scale(y)
-      .orient("left");
+      .orient("left")
+      .ticks(8);
 
   var line = d3.svg.line()
       //.interpolate("cardinal")
