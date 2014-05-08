@@ -70,26 +70,31 @@ function prepData(type) {
       return parseFloat(formatDistance(d.values.distance_m));
     };
     graphData.yAxisLabel = 'Distance (mi)';
+    graphData.unitFomatter = function(d) { return d.value + ' miles'; };
   } else if (type == 'duration') {
     formatter = function(d) {
       return formatDurationHours(d.values.duration);
     };
     graphData.yAxisLabel = 'Drive Time (hours)';
+    graphData.unitFomatter = function(d) { return d.value + ' hours'; };
   } else if (type == 'trip_count') {
     formatter = function(d) {
       return d.values.trip_count;
     };
     graphData.yAxisLabel = 'Trip Count';
+    graphData.unitFomatter = function(d) { return d.value + ' trips'; };
   } else if (type == 'fuel_cost_usd') {
     formatter = function(d) {
       return d.values.fuel_cost_usd;
     };
     graphData.yAxisLabel = 'Fuel Cost (USD)';
+    graphData.unitFomatter = function(d) { return '$' + formatFuelCost(d.value); };
   } else if (type == 'fuel_volume_gal') {
     formatter = function(d) {
       return d.values.fuel_volume_gal;
     };
     graphData.yAxisLabel = 'Fuel Volume (gal)';
+    graphData.unitFomatter = function(d) { return formatFuelVolume(d.value) + ' gallons'; };
   }
 
   graphData.data = weekly.map(function(d) {
@@ -106,12 +111,10 @@ function prepData(type) {
 function drawGraph(graphData) {
   $('#graphs .graph').empty();
 
-  console.log(graphData)
-
   var margin = {top: 20, right: 40, bottom: 30, left: 50},
       width = 600 - margin.left - margin.right,
       height = 222 - margin.top - margin.bottom,
-      bisectDate = d3.bisector(function(d) { return d.value; }).left;
+      bisectDate = d3.bisector(function(d) { return d.key; }).left;
 
   var x = d3.time.scale()
       .domain([_.first(graphData.data).key, _.last(graphData.data).key])
@@ -161,4 +164,33 @@ function drawGraph(graphData) {
       .datum(graphData.data)
       .attr("class", "line")
       .attr("d", line);
+
+  var focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+
+  focus.append("circle")
+      .attr("r", 4.5);
+
+  focus.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em");
+
+  svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function() { focus.style("display", null); })
+      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mousemove", mousemove);
+
+  function mousemove() {
+    var x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectDate(graphData.data, x0),
+        d0 = graphData.data[i - 1],
+        d1 = graphData.data[i],
+        d = x0 - d0.key > d1.key - x0 ? d1 : d0;
+    focus.attr("transform", "translate(" + x(d.key) + "," + y(d.value) + ")");
+    focus.select("text").text(graphData.unitFomatter(d));
+  }
 }
