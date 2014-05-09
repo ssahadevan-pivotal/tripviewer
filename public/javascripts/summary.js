@@ -1,7 +1,7 @@
-var data,
+var trips,
     weekly;
 
-getSummary();
+fetchData(processTrips);
 
 
 $('.graph-buttons button').click(function() {
@@ -10,13 +10,21 @@ $('.graph-buttons button').click(function() {
   drawGraph(prepData(type));
 });
 
-function getSummary() {
-  $.getJSON('/download/trips.json')
-    .done(function(results) {
-      data = results;
-      processResults();
-      hideLoading();
-    });
+
+$('#refresh').click(function() {
+  clearCache();
+  deleteCharts();
+  fetchData(processTrips);
+});
+
+
+function deleteCharts() {
+  $('#graphs .graph').empty();
+  $('#overall .distance span').empty();
+  $('#overall .duration span').empty();
+  $('#overall .trip_count span').empty();
+  $('#overall .fuel_volume_gal span').empty();
+  $('#overall .fuel_cost_usd span').empty();
 }
 
 
@@ -36,17 +44,17 @@ function summarizeData(d) {
 }
 
 
-function processResults() {
+function processTrips(trips) {
   weekly = d3.nest()
     .key(function(d) { return moment(d.start_time).format('YYYY w'); })
     .rollup(summarizeData)
-    .entries(data);
+    .entries(trips);
 
   weekly = weekly.reverse();
 
   var totals = d3.nest()
     .rollup(summarizeData)
-    .entries(data);
+    .entries(trips);
 
   showOverview(totals);
   drawGraph(prepData('distance'));

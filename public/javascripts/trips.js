@@ -1,7 +1,4 @@
-var page = parseInt(sessionStorage.getItem('page') || 1, 10),
-    data = getCachedData(),
-    fetching = false,
-    drawing = false,
+var trips,
     viewType = 'tile';
 
 _.templateSettings = {
@@ -26,17 +23,18 @@ var trip_table_header = _.template('<div class="table table-header"><div class="
 '<div class="startLocation">Start Location</div><div class="endLocation">End Location</div><div class="distance">Dist</div>' +
 '<div class="mpg">MPG</div><div class="fuelCost">Fuel</div></div>');
 
-fetchTrips(renderViewType);
+fetchData(renderViewType);
 
-//infinite scroll
-$(window).scroll(function() {
-  drawMaps();
-  //only fetch trips if we still have a page number to fetch
-  if(fetching === false && $(window).scrollTop() + $(window).height() > $(document).height() - 1000) {
-    fetching = true;
-    fetchTrips(renderNewTrips);
-  }
+//postpone drawing maps until we need them
+$(window).scroll(drawMaps);
+
+
+$('#refresh').click(function() {
+  clearCache();
+  deleteData();
+  fetchData(renderViewType);
 });
+
 
 $('.display-type a').click(function() {
   viewType = $(this).data('type');
@@ -44,6 +42,7 @@ $('.display-type a').click(function() {
   renderViewType();
   return false;
 });
+
 
 $('#selectall').change(function() {
   if($(this).is(':checked')) {
@@ -53,6 +52,7 @@ $('#selectall').change(function() {
   }
 });
 
+
 $('#trips').on('change', '.trip.table input[type="checkbox"]', function(){
   if($('.trip.table input[type="checkbox"]').length == $('.trip.table input[type="checkbox"]:checked').length) {
     selectAll();
@@ -60,6 +60,7 @@ $('#trips').on('change', '.trip.table input[type="checkbox"]', function(){
     selectSome();
   }
 });
+
 
 $('#csv, #json').click(function() {
   var href = '/download/trips.' + this.id;
@@ -69,6 +70,11 @@ $('#csv, #json').click(function() {
   }
   $(this).attr('href', href);
 });
+
+
+function deleteData() {
+  $('#trips').empty();
+}
 
 
 function selectAll() {
@@ -91,55 +97,6 @@ function selectNone() {
 }
 
 
-function fetchTrips(cb) {
-  if(!page) { return; }
-
-  if(data.length && !$('#trips .trip').length) {
-    //show cached trips if we haven't already
-    cb(data);
-    return;
-  }
-
-  showLoading();
-  $.getJSON('/api/trips/', {page: page})
-    .done(function(results) {
-      hideLoading();
-      if(results && results.length) {
-        page += 1;
-        data = data.concat(results);
-        cacheData(results, page);
-        cb(results);
-      } else {
-        page = undefined;
-      }
-    })
-    .fail(function(jqhxr, textStatus, error) {
-      showAlert('Unable to fetch trips (' + jqhxr.status + ' ' + error + ')', 'danger');
-    });
-}
-
-
-function cacheData(trips, page) {
-  var order = [];
-  sessionStorage.setItem('page', page);
-  if(page != 1) {
-    order = JSON.parse(sessionStorage.getItem('order') || '[]');
-  }
-  order = order.concat(_.pluck(trips, 'id'));
-  sessionStorage.setItem('order', JSON.stringify(order));
-
-  trips.forEach(function(trip) {
-    sessionStorage.setItem(trip.id, JSON.stringify(trip));
-  });
-}
-
-
-function getCachedData() {
-  var order = JSON.parse(sessionStorage.getItem('order') || '[]');
-
-  return order.map(function(trip_id) { return JSON.parse(sessionStorage.getItem(trip_id) || {}); });
-}
-
 
 function renderViewType() {
   $('#trips')
@@ -148,11 +105,11 @@ function renderViewType() {
     .addClass(viewType);
 
   if(viewType == 'tile') {
-    data.forEach(renderTile);
+    trips.forEach(renderTile);
     selectAll();
   } else if(viewType == 'table') {
     $('#trips').append(_.template(trip_table_header()));
-    data.forEach(renderTable);
+    trips.forEach(renderTable);
   }
   drawMaps();
   hideLoading();

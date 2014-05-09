@@ -10,6 +10,7 @@ body {
   padding: 10px 20px 20px 20px;
   position: relative;
   border: 1px solid #ccc;
+  min-height: 420px;
 }
 
 .titlebar {
@@ -22,6 +23,12 @@ body {
 
 .tagline {
   color: #666;
+}
+
+#refresh {
+  float: right;
+  margin-top: 14px;
+  margin-right: 16px;
 }
 
 #topmenu {
@@ -412,6 +419,7 @@ body {
   border: 1px solid #ddd;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  display: none;
 }
 
 
@@ -537,6 +545,11 @@ body {
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+#summary h2 {
+  float: left;
+  display: inline-block;
 }
 
 .axis path,
