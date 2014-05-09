@@ -55,7 +55,7 @@ function showOverview(totals) {
   $('#overall .duration span').html(formatDuration(totals.duration));
   $('#overall .trip_count span').html(totals.trip_count);
   $('#overall .fuel_volume_gal span').html(formatFuelVolume(totals.fuel_volume_gal));
-  $('#overall .fuel_cost_usd span').html(formatFuelCost(totals.fuel_cost_usd));
+  $('#overall .fuel_cost_usd span').html('$' + formatFuelCost(totals.fuel_cost_usd));
 }
 
 

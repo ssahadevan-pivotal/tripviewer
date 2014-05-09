@@ -11,7 +11,7 @@ var vehicle_template = _.template('<div class="vehicle" id="{{id}}"><div class="
 var vehicle_stats_template = _.template('<div class="vehicleStats"><div class="distance"><span class="badge">{{distance_mi}}</span>Miles Driven</div>' +
   '<div class="fuel_volume_gal"><span class="badge">{{fuel_volume_gal}}</span>Gallons of Fuel</div>' +
   '<div class="duration"><span class="badge">{{duration}}</span>Minutes Driven</div>' +
-  '<div class="fuel_cost_usd"><span class="badge">{{fuel_cost_usd}}</span>Fuel Cost</div>' +
+  '<div class="fuel_cost_usd"><span class="badge">${{fuel_cost_usd}}</span>Fuel Cost</div>' +
   '<div class="trip_count">{{trip_count}} Trips</div></div>');
 
 

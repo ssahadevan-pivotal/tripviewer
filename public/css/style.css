@@ -503,10 +503,12 @@ body {
   float: right;
   margin: 0;
   position: relative;
+  padding: 15px;
 }
 
 #trip .trip.tile .tripSummary {
-  width: 332px;
+  width: 295px;
+  margin-left: 10px;
 }
 
 #trip .trip.tile .distance,
