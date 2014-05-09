@@ -17,7 +17,7 @@ exports.trips = function(req, res) {
       res.json(400, {"message": "Invalid access_token"});
     }
   });
-}
+};
 
 
 exports.trip = function(req, res) {
@@ -32,8 +32,22 @@ exports.trip = function(req, res) {
       res.json(400, {"message": "Invalid access_token"});
     }
   });
-}
+};
 
+
+exports.vehicles = function(req, res) {
+  request.get({
+    uri: 'https://api.automatic.com/v1/vehicles/',
+    headers: {Authorization: 'token ' + req.session.access_token}
+  }, function(e, r, body) {
+    try {
+      res.json(JSON.parse(body));
+    } catch(e) {
+      console.log("error: " + e);
+      res.json(400, {"message": "Invalid access_token"});
+    }
+  });
+}
 
 
 exports.downloadTripsJSON = function(req, res) {
@@ -48,7 +62,7 @@ exports.downloadTripsJSON = function(req, res) {
   } catch(e) {
     res.json(500, undefined);
   }
-}
+};
 
 
 exports.downloadTripsCSV = function(req, res) {
@@ -67,7 +81,7 @@ exports.downloadTripsCSV = function(req, res) {
   } catch(e) {
     res.json(500, undefined);
   }
-}
+};
 
 
 function downloadAllTrips(req, cb) {

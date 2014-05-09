@@ -17,6 +17,11 @@ exports.trip = function(req, res){
 };
 
 
+exports.vehicles = function(req, res){
+  res.render('vehicles', {loggedIn: true, menu: 'vehicles'});
+};
+
+
 exports.force_https = function(req, res, next) {
   if(req.headers['x-forwarded-proto'] != 'https') {
     res.redirect('https://' + req.headers.host + req.path);

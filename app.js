@@ -41,6 +41,7 @@ if (app.get('env') !== 'development') {
 app.get('/', routes.index);
 app.get('/trips', oauth.authenticate, routes.trips);
 app.get('/trips/:id', oauth.authenticate, routes.trip);
+app.get('/vehicles', oauth.authenticate, routes.vehicles);
 
 app.get('/authorize/', oauth.authorize);
 app.get('/logout/', oauth.logout);
@@ -48,6 +49,7 @@ app.get('/redirect/', oauth.redirect);
 
 app.get('/api/trips/', oauth.authenticate, api.trips);
 app.get('/api/trips/:id', oauth.authenticate, api.trip);
+app.get('/api/vehicles/', oauth.authenticate, api.vehicles);
 app.get('/download/trips.json', oauth.authenticate, api.downloadTripsJSON);
 app.get('/download/trips.csv', oauth.authenticate, api.downloadTripsCSV);
 

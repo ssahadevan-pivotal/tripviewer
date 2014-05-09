@@ -1,4 +1,4 @@
-function fetchData(cb) {
+function fetchTrips(cb) {
   var ts = sessionStorage.getItem('ts');
   if(ts < Date.now() - (60*60*1000)) {
     showLoading();
@@ -15,6 +15,46 @@ function fetchData(cb) {
   }
 }
 
+
+function fetchTrip(trip_id, cb) {
+  var cached = sessionStorage.getItem(trip_id);
+  if(cached) {
+    cb(JSON.parse(cached));
+  } else {
+    showLoading();
+    $.getJSON('/api/trips/' + trip_id)
+      .done(function(data) {
+        hideLoading();
+        if(data) {
+          cb(data);
+        } else {
+          showAlert('No trips found', 'warning');
+        }
+      })
+      .fail(function(jqhxr, textStatus, error) {
+        showAlert('Unable to fetch trip (' +jqhxr.status + ' ' + error + ')', 'danger');
+      });
+  }
+}
+
+
+function fetchVehicles(cb) {
+  var vehicles = JSON.parse(sessionStorage.getItem('vehicles') || '[]');
+  if(vehicles.length) {
+    cb(vehicles);
+  } else {
+    showLoading();
+    $.getJSON('/api/vehicles/')
+      .done(function(results) {
+        vehicles = results;
+        cacheVehicles(vehicles);
+        cb(vehicles);
+        hideLoading();
+      });
+  }
+}
+
+
 function cacheTrips(trips) {
   var order = _.pluck(trips, 'id');
   sessionStorage.setItem('order', JSON.stringify(order));
@@ -24,6 +64,12 @@ function cacheTrips(trips) {
     sessionStorage.setItem(trip.id, JSON.stringify(trip));
   });
 }
+
+
+function cacheVehicles(vehicles) {
+  sessionStorage.setItem('vehicles', JSON.stringify(vehicles));
+}
+
 
 function getCachedTrips() {
   var order = JSON.parse(sessionStorage.getItem('order') || '[]');

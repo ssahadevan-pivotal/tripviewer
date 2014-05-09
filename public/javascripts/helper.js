@@ -156,3 +156,14 @@ function drawMap(trip) {
     .bindPopup(trip.end_location.name + '<br>' + formatTime(trip.end_time, trip.end_time_zone))
     .addTo(map);
 }
+
+
+function summarizeData(d) {
+  return {
+    distance_m: d3.sum(d, function(d) { return +d.distance_m; }),
+    duration: d3.sum(d, function(d) { return +(d.end_time - d.start_time); }),
+    trip_count: d.length,
+    fuel_volume_gal: d3.sum(d, function(d) { return +d.fuel_volume_gal; }),
+    fuel_cost_usd: d3.sum(d, function(d) { return +d.fuel_cost_usd; })
+  };
+}

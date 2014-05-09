@@ -1,7 +1,7 @@
 var trips,
     weekly;
 
-fetchData(processTrips);
+fetchTrips(processTrips);
 
 
 $('.graph-buttons button').click(function() {
@@ -14,7 +14,7 @@ $('.graph-buttons button').click(function() {
 $('#refresh').click(function() {
   clearCache();
   deleteCharts();
-  fetchData(processTrips);
+  fetchTrips(processTrips);
 });
 
 
@@ -30,17 +30,6 @@ function deleteCharts() {
 
 function getEmpty() {
   return {distance_m: 0, duration: 0, trip_count: 0, fuel_volume_gal: 0, fuel_cost_usd: 0};
-}
-
-
-function summarizeData(d) {
-  return {
-    distance_m: d3.sum(d, function(d) { return +d.distance_m; }),
-    duration: d3.sum(d, function(d) { return +(d.end_time - d.start_time); }),
-    trip_count: d.length,
-    fuel_volume_gal: d3.sum(d, function(d) { return +d.fuel_volume_gal; }),
-    fuel_cost_usd: d3.sum(d, function(d) { return +d.fuel_cost_usd; })
-  };
 }
 
 

@@ -23,7 +23,7 @@ var trip_table_header = _.template('<div class="table table-header"><div class="
 '<div class="startLocation">Start Location</div><div class="endLocation">End Location</div><div class="distance">Dist</div>' +
 '<div class="mpg">MPG</div><div class="fuelCost">Fuel</div></div>');
 
-fetchData(renderViewType);
+fetchTrips(renderViewType);
 
 //postpone drawing maps until we need them
 $(window).scroll(drawMaps);
@@ -32,7 +32,7 @@ $(window).scroll(drawMaps);
 $('#refresh').click(function() {
   clearCache();
   deleteData();
-  fetchData(renderViewType);
+  fetchTrips(renderViewType);
 });
 
 
@@ -113,7 +113,6 @@ function renderViewType() {
   }
   drawMaps();
   hideLoading();
-  fetching = false;
 }
 
 

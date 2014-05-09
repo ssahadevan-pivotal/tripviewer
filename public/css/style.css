@@ -581,6 +581,75 @@ body {
 }
 
 
+#vehicles .vehicle {
+  padding: 15px 20px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+#vehicles .vehicle:first-child {
+  border-top: 1px solid #ccc;
+}
+
+#vehicles .vehicle .vehicleDetails {
+  width: 250px;
+  display: inline-block;
+  vertical-align: top;
+  height: 53px;
+}
+
+#vehicles .vehicle .vehicleDetails .display_name {
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+}
+
+#vehicles .vehicle .color {
+  width: 175px;
+  height: 52px;
+  background-image: url('../images/vehicle.png');
+  background-repeat: no-repeat;
+  background-size: 175px 52px;
+  display: inline-block;
+}
+
+#vehicles .vehicle .vehicleDetails div {
+  font-size: 16px;
+  display: inline-block;
+  padding-right: 8px;
+}
+
+#vehicles .vehicle .vehicleStats {
+  display: inline-block;
+  width: 490px;
+  vertical-align: top;
+}
+
+#vehicles .vehicle .vehicleStats>div {
+  width: 219px;
+  float: left;
+  padding-left: 30px;
+  font-size: 15px;
+  padding-bottom: 7px;
+}
+
+#vehicles .vehicle .vehicleStats:nth-child(2) {
+  clear: left;
+}
+
+#vehicles .vehicle .vehicleStats .trip_count {
+  position: absolute;
+  top: 30px;
+  left: 300px;
+  font-weight: bold;
+}
+
+#vehicles .vehicle .vehicleStats span.badge {
+  float: right;
+}
+
+
+
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5) and (min-resolution: 144dpi) {
 
   .sign-in .btn-sign-in {
