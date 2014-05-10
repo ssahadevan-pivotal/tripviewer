@@ -94,6 +94,15 @@ function formatTimeTable(time, timezone) {
 }
 
 
+function formatTripCount(trip_count) {
+  if(trip_count == 1) {
+    return trip_count + ' Trip';
+  } else {
+    return trip_count + ' Trips';
+  }
+}
+
+
 function isScrolledIntoView(elem) {
     var docViewTop = $(window).scrollTop();
     var docViewBottom = docViewTop + $(window).height();

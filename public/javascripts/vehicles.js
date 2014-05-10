@@ -12,7 +12,7 @@ var vehicle_stats_template = _.template('<div class="vehicleStats"><div class="d
   '<div class="fuel_volume_gal"><span class="badge">{{fuel_volume_gal}}</span>Gallons of Fuel</div>' +
   '<div class="duration"><span class="badge">{{duration}}</span>Minutes Driven</div>' +
   '<div class="fuel_cost_usd"><span class="badge">${{fuel_cost_usd}}</span>Fuel Cost</div>' +
-  '<div class="trip_count">{{trip_count}} Trips</div></div>');
+  '<div class="trip_count">{{trip_count}}</div></div>');
 
 
 fetchVehicles(renderVehicles);
@@ -23,6 +23,11 @@ $('#refresh').click(function() {
   deleteData();
   fetchVehicles(renderVehicles);
 });
+
+
+function deleteData() {
+  $('#vehicles').empty();
+}
 
 
 function renderVehicles(results) {
@@ -55,7 +60,7 @@ function tripsByVehicle(trips) {
       duration: formatDuration(vehicle.values.duration),
       fuel_cost_usd: formatFuelCost(vehicle.values.fuel_cost_usd),
       fuel_volume_gal: formatFuelVolume(vehicle.values.fuel_volume_gal),
-      trip_count: vehicle.values.trip_count
+      trip_count: formatTripCount(vehicle.values.trip_count)
     }
 
     $(vehicle_stats_template(stats))

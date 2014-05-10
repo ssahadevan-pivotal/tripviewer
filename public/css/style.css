@@ -13,6 +13,12 @@ body {
   min-height: 420px;
 }
 
+h2.pageTitle {
+  float: left;
+  display: inline-block;
+}
+
+
 .titlebar {
   margin-top: 0;
   margin-bottom: 5px;
@@ -549,11 +555,6 @@ body {
   right: 10px;
 }
 
-#summary h2 {
-  float: left;
-  display: inline-block;
-}
-
 .axis path,
 .axis line {
   fill: none;
@@ -582,6 +583,9 @@ body {
   stroke: steelblue;
 }
 
+#vehicles {
+  clear: both;
+}
 
 #vehicles .vehicle {
   padding: 15px 20px;
