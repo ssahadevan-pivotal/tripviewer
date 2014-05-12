@@ -2,11 +2,11 @@
 
 ## View and export trip data collected by Automatic
 
-A node.js app that allows users to view and export their trips taken using Automatic.  It uses the Automatic API.
+A node.js app that allows users to view and export their trips taken using [Automatic](http://automatic.com).  It uses the [Automatic API](http://automatic.com/developer).
 
 ## Demo
 
-A version of this application is available at [https://tripviewer.herokuapp.com](https://tripviewer.herokuapp.com).
+A demo version of this application is available at [https://tripviewer.herokuapp.com](https://tripviewer.herokuapp.com).
 
 ## Running
 

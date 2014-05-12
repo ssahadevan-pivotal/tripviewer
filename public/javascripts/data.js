@@ -50,6 +50,9 @@ function fetchVehicles(cb) {
         cacheVehicles(vehicles);
         cb(vehicles);
         hideLoading();
+      })
+      .fail(function(jqhxr, textStatus, error) {
+        showAlert('Unable to fetch vehicles (' +jqhxr.status + ' ' + error + ')', 'danger');
       });
   }
 }
