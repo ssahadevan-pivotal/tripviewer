@@ -23,7 +23,7 @@ var trip_table_header = _.template('<div class="table table-header"><div class="
 '<div class="startLocation">Start Location</div><div class="endLocation">End Location</div><div class="distance">Dist</div>' +
 '<div class="mpg">MPG</div><div class="fuelCost">Fuel</div></div>');
 
-fetchTrips(renderViewType);
+fetchTrips(renderTrips);
 
 //postpone drawing maps until we need them
 $(window).scroll(drawMaps);
@@ -32,19 +32,19 @@ $(window).scroll(drawMaps);
 $('#refresh').click(function() {
   clearCache();
   deleteData();
-  fetchTrips(renderViewType);
+  fetchTrips(renderTrips);
 });
 
 
 $('.display-type a').click(function() {
   viewType = $(this).data('type');
   $(this).addClass('active').siblings().removeClass('active')
-  renderViewType();
+  renderTrips();
   return false;
 });
 
 
-$('#selectall').change(function() {
+$('#trips').on('change', '#selectall', function() {
   if($(this).is(':checked')) {
     selectAll();
   } else {
@@ -97,8 +97,7 @@ function selectNone() {
 }
 
 
-
-function renderViewType() {
+function renderTrips() {
   $('#trips')
     .empty()
     .removeClass()
@@ -113,16 +112,6 @@ function renderViewType() {
   }
   drawMaps();
   hideLoading();
-}
-
-
-function renderNewTrips(trips) {
-  if(viewType == 'tile') {
-    trips.forEach(renderTile);
-    selectAll();
-  } else if(viewType == 'table') {
-    trips.forEach(renderTable);
-  }
 }
 
 
