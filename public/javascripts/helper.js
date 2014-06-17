@@ -126,7 +126,7 @@ function drawMaps() {
 
 function drawMap(trip) {
   var div_id = 'map' + trip.id;
-  var map = L.mapbox.map(div_id, 'examples.map-9ijuk24y');
+  var map = L.mapbox.map(div_id, 'examples.map-i86nkdio');
 
   if (trip.path) {
     var polyline = L.Polyline.fromEncoded(trip.path, {color: '#08b1d5', opacity: 0.9});
@@ -143,7 +143,7 @@ function drawMap(trip) {
     iconSize: [25, 41],
     iconAnchor: [12, 40],
     popupAnchor: [0,-41],
-    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.1/images/marker-shadow.png',
+    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.4/images/marker-shadow.png',
     shadowSize: [41, 41],
     shadowAnchor: [12, 40]
   });
@@ -153,7 +153,7 @@ function drawMap(trip) {
     iconSize: [25, 41],
     iconAnchor: [12, 40],
     popupAnchor: [0,-41],
-    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.1/images/marker-shadow.png',
+    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.4/images/marker-shadow.png',
     shadowSize: [41, 41],
     shadowAnchor: [12, 40]
   });
