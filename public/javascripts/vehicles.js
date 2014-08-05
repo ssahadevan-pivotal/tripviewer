@@ -50,7 +50,7 @@ function renderVehicle(vehicle) {
 
 function tripsByVehicle(trips) {
   var totals = d3.nest()
-    .key(function(d) { return d.vehicle.id; })
+    .key(function(d) { return (d.vehicle) ? d.vehicle.id : ''; })
     .rollup(summarizeData)
     .entries(trips);
 
