@@ -3,9 +3,9 @@ var http = require('http');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var nconf = require('nconf');
+var session = require('express-session');
 
 nconf.env().argv();
 nconf.file('./config.json');
@@ -26,11 +26,9 @@ app.set('view engine', 'jade');
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser('rXrq6xCSJu'));
-app.use(express.session());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: nconf.get('SESSION_SECRET'), resave: true, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(app.router);
 
 if (app.get('env') !== 'development') {
 	app.all('*', routes.force_https);
