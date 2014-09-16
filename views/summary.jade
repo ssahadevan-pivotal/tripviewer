@@ -8,12 +8,6 @@ block content
       #overall.panel.panel-default
         .panel-heading Total Automatic Stats
         .panel-body
-          ul.list-group
-            li.distance.list-group-item <span class="badge"></span> Miles Driven
-            li.duration.list-group-item <span class="badge"></span> Minutes Driven
-            li.trip_count.list-group-item <span class="badge"></span> Trips Taken
-            li.fuel_volume_gal.list-group-item <span class="badge"></span> Gallons of Fuel
-            li.fuel_cost_usd.list-group-item <span class="badge"></span> Fuel Cost
     .col-sm-8
       #graphs.panel.panel-default
         .panel-heading Weekly Driving
@@ -30,4 +24,12 @@ block content
   .loading Loading...
 
 block scripts
+  script(type="text/template" id='summaryList')
+    ul.list-group
+      li.distance.list-group-item <span class="badge"><%- formatDistance(distance_m) %></span> Miles Driven
+      li.duration.list-group-item <span class="badge"><%- formatDuration(duration) %></span> Minutes Driven
+      li.trip_count.list-group-item <span class="badge"><%- trip_count %></span> Trips Taken
+      li.fuel_volume_gal.list-group-item <span class="badge"><%- formatFuelVolume(fuel_volume_gal) %></span> Gallons of Fuel
+      li.fuel_cost_usd.list-group-item <span class="badge">$<%- formatFuelCost(fuel_cost_usd) %></span> Fuel Cost
+
   script(src="/javascripts/summary.js")

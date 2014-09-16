@@ -34,6 +34,8 @@ function getEmpty() {
 
 
 function processTrips(trips) {
+  var summaryListTemplate = $('#summaryList').html();
+
   weekly = d3.nest()
     .key(function(d) { return moment(d.start_time).format('YYYY w'); })
     .rollup(summarizeData)
@@ -45,17 +47,8 @@ function processTrips(trips) {
     .rollup(summarizeData)
     .entries(trips);
 
-  showOverview(totals);
+  $('#overall .panel-body').html(_.template(summaryListTemplate, totals));
   drawGraph(prepData('distance'));
-}
-
-
-function showOverview(totals) {
-  $('#overall .distance span').html(formatDistance(totals.distance_m));
-  $('#overall .duration span').html(formatDuration(totals.duration));
-  $('#overall .trip_count span').html(totals.trip_count);
-  $('#overall .fuel_volume_gal span').html(formatFuelVolume(totals.fuel_volume_gal));
-  $('#overall .fuel_cost_usd span').html('$' + formatFuelCost(totals.fuel_cost_usd));
 }
 
 
