@@ -20,11 +20,7 @@ $('#refresh').click(function() {
 
 function deleteCharts() {
   $('#graphs .graph').empty();
-  $('#overall .distance span').empty();
-  $('#overall .duration span').empty();
-  $('#overall .trip_count span').empty();
-  $('#overall .fuel_volume_gal span').empty();
-  $('#overall .fuel_cost_usd span').empty();
+  $('#overall li span').empty();
 }
 
 
@@ -57,7 +53,7 @@ function prepData(type) {
       formatter;
   if (type == 'distance') {
     formatter = function(d) {
-      return parseFloat(formatDistance(d.values.distance_m));
+      return parseFloat(formatDistance(m_to_mi(d.values.distance_m)));
     };
     graphData.yAxisLabel = 'Distance (mi)';
     graphData.unitFomatter = function(d) { return d.value + ' miles'; };

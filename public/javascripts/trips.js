@@ -122,7 +122,7 @@ function renderTile(trip) {
     duration: formatDuration(trip.end_time - trip.start_time),
     start_time: formatTime(trip.start_time, trip.start_time_zone),
     end_location: formatLocation(trip.end_location.name),
-    distance: formatDistance(trip.distance_m),
+    distance: formatDistance(m_to_mi(trip.distance_m)),
     average_mpg: formatMPG(trip.average_mpg),
     fuel_cost_usd: formatFuelCost(trip.fuel_cost_usd),
     hard_brakes_class: (trip.hard_brakes > 0 ? 'someHardBrakes' : 'noHardBrakes'),
@@ -148,7 +148,7 @@ function renderTable(trip) {
     duration: formatDuration(trip.end_time - trip.start_time),
     start_location: formatLocation(trip.start_location.name),
     end_location: formatLocation(trip.end_location.name),
-    distance: formatDistance(trip.distance_m),
+    distance: formatDistance(m_to_mi(trip.distance_m)),
     average_mpg: formatMPG(trip.average_mpg),
     fuel_cost_usd: '$' + formatFuelCost(trip.fuel_cost_usd)
   }

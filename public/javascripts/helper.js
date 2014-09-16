@@ -31,13 +31,16 @@ function formatDurationHours(ms) {
 }
 
 
+function m_to_mi(distance_m) {
+  return distance_m / 1609.34;
+}
+
+
 function formatDistance(distance) {
-  //convert from m to mi
-  var distance_mi = distance / 1609.34;
-  if(Math.round(distance_mi) >= 100) {
-    return distance_mi.toFixed(0);
+  if(Math.round(distance) >= 100) {
+    return distance.toFixed(0);
   } else {
-    return distance_mi.toFixed(1);
+    return distance.toFixed(1);
   }
 }
 
@@ -52,13 +55,13 @@ function formatFuelVolume(fuelVolume) {
 }
 
 
-function formatLocation(location) {
-  return (location) ? location.replace(/\d+, USA/gi, '') : '';
+function formatMPG(mpg) {
+  return mpg.toFixed(1);
 }
 
 
-function formatMPG(average_mpg) {
-  return average_mpg.toFixed(1);
+function formatLocation(location) {
+  return (location) ? location.replace(/\d+, USA/gi, '') : '';
 }
 
 
@@ -168,11 +171,14 @@ function drawMap(trip) {
 
 
 function summarizeData(d) {
-  return {
+  var summary = {
     distance_m: d3.sum(d, function(d) { return +d.distance_m; }),
     duration: d3.sum(d, function(d) { return +(d.end_time - d.start_time); }),
     trip_count: d.length,
     fuel_volume_gal: d3.sum(d, function(d) { return +d.fuel_volume_gal; }),
     fuel_cost_usd: d3.sum(d, function(d) { return +d.fuel_cost_usd; })
   };
+  summary.average_mpg = m_to_mi(summary.distance_m) / summary.fuel_volume_gal;
+
+  return summary;
 }

@@ -56,7 +56,7 @@ function tripsByVehicle(trips) {
 
   totals.forEach(function(vehicle) {
     var stats = {
-      distance_mi: formatDistance(vehicle.values.distance_m),
+      distance_mi: formatDistance(m_to_mi(vehicle.values.distance_m)),
       duration: formatDuration(vehicle.values.duration),
       fuel_cost_usd: formatFuelCost(vehicle.values.fuel_cost_usd),
       fuel_volume_gal: formatFuelVolume(vehicle.values.fuel_volume_gal),

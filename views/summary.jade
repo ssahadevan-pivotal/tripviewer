@@ -26,9 +26,10 @@ block content
 block scripts
   script(type="text/template" id='summaryList')
     ul.list-group
-      li.distance.list-group-item <span class="badge"><%- formatDistance(distance_m) %></span> Miles Driven
+      li.distance.list-group-item <span class="badge"><%- formatDistance(m_to_mi(distance_m)) %></span> Miles Driven
       li.duration.list-group-item <span class="badge"><%- formatDuration(duration) %></span> Minutes Driven
       li.trip_count.list-group-item <span class="badge"><%- trip_count %></span> Trips Taken
+      li.average_mpg.list-group-item <span class="badge"><%- formatMPG(average_mpg) %></span> Average MPG
       li.fuel_volume_gal.list-group-item <span class="badge"><%- formatFuelVolume(fuel_volume_gal) %></span> Gallons of Fuel
       li.fuel_cost_usd.list-group-item <span class="badge">$<%- formatFuelCost(fuel_cost_usd) %></span> Fuel Cost
 
