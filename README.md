@@ -18,9 +18,11 @@ A demo version of this application is available at [https://tripviewer.herokuapp
 
 Copy the file `config-sample.json` to `config.json` and add your Automatic client id and client secret.  Alternatively, create environment variables named `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET`, `AUTOMATIC_AUTHORIZE_URL`, and `AUTOMATIC_AUTH_TOKEN_URL`.
 
+    cp config-sample.json config.json
+
 ### Run the app
 
-    DEBUG=tripviewer npm start
+    npm start
 
 ### View the app
 
@@ -36,7 +38,7 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
 You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
 
-    DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN npm start
+    TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN npm start
 
 ### Deploy to Heroku
 
