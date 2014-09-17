@@ -61,7 +61,7 @@ function prepData(type) {
     formatter = function(d) {
       return formatDurationHours(d.values.duration);
     };
-    graphData.yAxisLabel = 'Drive Time (hours)';
+    graphData.yAxisLabel = 'Duration (hours)';
     graphData.unitFomatter = function(d) { return d.value + ' hours'; };
   } else if (type == 'trip_count') {
     formatter = function(d) {

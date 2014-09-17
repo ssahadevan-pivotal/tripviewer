@@ -2,24 +2,26 @@ extends layout
 
 block content
   #summary
+
     h2.pageTitle Summary
     #refresh.btn.btn-default <i class="glyphicon glyphicon-refresh"></i> Refresh
-    .col-sm-4(style="clear: both;")
-      #overall.panel.panel-default
-        .panel-heading Total Automatic Stats
-        .panel-body
-    .col-sm-8
-      #graphs.panel.panel-default
-        .panel-heading Weekly Driving
-        .panel-body
-          .btn-group.graph-buttons
-            button.btn.btn-default.active(type="button" data-graph-type="distance") Miles
-            button.btn.btn-default(type="button" data-graph-type="duration") Hours
-            button.btn.btn-default(type="button" data-graph-type="trip_count") Trips
-            button.btn.btn-default(type="button" data-graph-type="fuel_cost_usd") Fuel Cost
-            button.btn.btn-default(type="button" data-graph-type="fuel_volume_gal") Fuel Volume
+    .row
+      .col-sm-4(style="clear: both;")
+        #overall.panel.panel-default
+          .panel-heading Total Automatic Stats
+          .panel-body
+      .col-sm-8
+        #graphs.panel.panel-default
+          .panel-heading Weekly Driving
+          .panel-body
+            .btn-group.graph-buttons
+              button.btn.btn-default.active(type="button" data-graph-type="distance") Distance
+              button.btn.btn-default(type="button" data-graph-type="duration") Duration
+              button.btn.btn-default(type="button" data-graph-type="trip_count") Trips
+              button.btn.btn-default(type="button" data-graph-type="fuel_cost_usd") Fuel Cost
+              button.btn.btn-default(type="button" data-graph-type="fuel_volume_gal") Fuel Volume
 
-          .graph
+            .graph
 
   .loading Loading...
 
@@ -27,8 +29,8 @@ block scripts
   script(type="text/template" id='summaryList')
     ul.list-group
       li.distance.list-group-item <span class="badge"><%- formatDistance(m_to_mi(distance_m)) %></span> Miles Driven
-      li.duration.list-group-item <span class="badge"><%- formatDuration(duration) %></span> Minutes Driven
-      li.trip_count.list-group-item <span class="badge"><%- trip_count %></span> Trips Taken
+      li.duration.list-group-item <span class="badge"><%- formatDuration(duration) %></span> Duration
+      li.trip_count.list-group-item <span class="badge"><%- trip_count %></span> Trip Count
       li.average_mpg.list-group-item <span class="badge"><%- formatMPG(average_mpg) %></span> Average MPG
       li.fuel_volume_gal.list-group-item <span class="badge"><%- formatFuelVolume(fuel_volume_gal) %></span> Gallons of Fuel
       li.fuel_cost_usd.list-group-item <span class="badge">$<%- formatFuelCost(fuel_cost_usd) %></span> Fuel Cost

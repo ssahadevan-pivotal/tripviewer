@@ -22,7 +22,7 @@ function hideAlert() {
 function formatDuration(ms) {
   var mins = Math.floor(ms % (60 * 60 * 1000) / (60 * 1000));
   var hours = Math.floor(ms / (60 * 60 * 1000));
-  return ((hours > 0) ? hours + 'h ' : '') + mins + ' min'
+  return ((hours > 0) ? hours + 'h ' : '') + mins + 'min';
 }
 
 
