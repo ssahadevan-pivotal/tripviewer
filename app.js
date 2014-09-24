@@ -10,7 +10,7 @@ var session = require('express-session');
 nconf.env().argv();
 nconf.file('./config.json');
 
-nconf.set('AUTOMATIC_SCOPES', 'scope:trip:summary scope:location scope:vehicle scope:notification:hard_accel scope:notification:hard_brake scope:notification:speeding');
+nconf.set('AUTOMATIC_SCOPES', 'scope:trip scope:location scope:vehicle:profile scope:vehicle:events');
 
 
 var routes = require('./routes');
