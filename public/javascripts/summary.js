@@ -30,7 +30,7 @@ function getEmpty() {
 
 
 function processTrips(trips) {
-  var summaryListTemplate = $('#summaryList').html();
+  var summaryListTemplate = _.template($('#summaryList').html());
 
   weekly = d3.nest()
     .key(function(d) { return moment(d.start_time).format('YYYY w'); })
@@ -43,7 +43,7 @@ function processTrips(trips) {
     .rollup(summarizeData)
     .entries(trips);
 
-  $('#overall .panel-body').html(_.template(summaryListTemplate, totals));
+  $('#overall .panel-body').html(summaryListTemplate(totals));
   drawGraph(prepData('distance'));
 }
 
