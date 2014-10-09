@@ -42,7 +42,7 @@ You can test locally as a logged in user, bypassing oAuth by including an `acces
 
 ### Deploy to Heroku
 
-If you have the heroku toolbelt installed, you can create, configure and deploy this app to Heroku.  To create an app:
+If you have the [heroku toolbelt](https://toolbelt.heroku.com/) installed, you can create, configure and deploy this app to Heroku.  To create an app:
 
     heroku create
 
@@ -67,7 +67,7 @@ See [deploying a node.js app](https://devcenter.heroku.com/articles/getting-star
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Automatic Inc
+Copyright (c) 2014 Automatic Inc
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -13,8 +13,8 @@ exports.trips = function(req, res) {
     try {
       res.json(JSON.parse(body));
     } catch(e) {
-      console.log("error: " + e);
-      res.json(400, {"message": "Invalid access_token"});
+      console.log('error: ' + e);
+      res.json(400, {'message': 'Invalid access_token'});
     }
   });
 };
@@ -28,8 +28,8 @@ exports.trip = function(req, res) {
     try {
       res.json(JSON.parse(body));
     } catch(e) {
-      console.log("error: " + e);
-      res.json(400, {"message": "Invalid access_token"});
+      console.log('error: ' + e);
+      res.json(400, {'message': 'Invalid access_token'});
     }
   });
 };
@@ -43,8 +43,8 @@ exports.vehicles = function(req, res) {
     try {
       res.json(JSON.parse(body));
     } catch(e) {
-      console.log("error: " + e);
-      res.json(400, {"message": "Invalid access_token"});
+      console.log('error: ' + e);
+      res.json(400, {'message': 'Invalid access_token'});
     }
   });
 }
@@ -202,7 +202,7 @@ function parse_link_header(header) {
     parts.forEach(function(p) {
       var section = p.split(';');
       if (section.length != 2) {
-        throw new Error("section could not be split on ';'");
+        throw new Error('section could not be split on ";"');
       }
       var url = section[0].replace(/<(.*)>/, '$1').trim();
       var name = section[1].replace(/rel="(.*)"/, '$1').trim();
