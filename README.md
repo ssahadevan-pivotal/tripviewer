@@ -10,6 +10,17 @@ A demo version of this application is available at [https://tripviewer.herokuapp
 
 ## Running
 
+
+### Prerequisites
+
+Install node.js
+
+    brew install node
+
+Install Gulp
+
+    npm install gulp -g
+
 ### Install required modules
 
     npm install
@@ -22,7 +33,7 @@ Copy the file `config-sample.json` to `config.json` and add your Automatic clien
 
 ### Run the app
 
-    gulp server
+    DEBUG=tripviewer gulp server
 
 ### View the app
 
