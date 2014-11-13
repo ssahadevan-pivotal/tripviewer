@@ -9,4 +9,26 @@ block scripts
   script(type='text/javascript').
     var trip_id = "!{trip_id}";
 
+  script(type='text/template' id='singleTrip')
+    h2 {{title}}
+    .map(id="map{{id}}")
+    .trip.tile
+      .times
+        .endTime {{ended_at}}
+        .duration {{duration}}
+        .startTime {{started_at}}
+        .tripLine
+          div
+          div
+      .tripSummary
+        .endAddress {{end_address}}
+        .tripSummaryBox
+          .distance {{distance}}
+          .hardBrakes(class="{{hard_brakes_class}}") {{hard_brakes}}
+          .mpg {{average_mpg}}
+          .hardAccels(class="{{hard_accels_class}}") {{hard_accels}}
+          .fuelCost {{fuel_cost_usd}}
+          .durationOver70(class="{{speeding_class}}") {{speeding}}
+        .startAddress {{start_address}}
+
   script(src="/javascripts/trip.js")

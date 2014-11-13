@@ -2,7 +2,7 @@
 
 ## A sample app using the Automatic REST API
 
-Tripviewer is a node.js app that allows users to view and export trips taken using [Automatic](http://automatic.com).  It demonstrates the use of the [Automatic REST API](http://automatic.com/developer).
+Tripviewer is a node.js app that allows users to view and export trips taken using [Automatic](http://automatic.com).  It demonstrates the use of the [Automatic REST API](http://developer.automatic.com).
 
 ## Demo
 

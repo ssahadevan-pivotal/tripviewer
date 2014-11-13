@@ -9,4 +9,55 @@ block content
   .loading Loading...
 
 block scripts
+  script(type='text/template' id='tripTile')
+    .trip.tile
+      a(href="/trips/{{id}}")
+        .times
+          .endTime {{ended_at}}
+          .duration {{duration}}
+          .startTime {{started_at}}
+          .tripLine
+            div
+            div
+        .tripSummary
+          .endAddress {{end_address}}
+          .tripSummaryBox
+            .distance {{distance}}
+            .mpg {{average_mpg}}
+            .fuelCost {{fuel_cost_usd}}
+            .hardBrakes(class="{{hard_brakes_class}}") {{hard_brakes}}
+            .hardAccels(class="{{hard_accels_class}}") {{hard_accels}}
+            .durationOver70(class="{{speeding_class}}") {{speeding}}
+          .startAddress {{start_address}}
+      .map(id="map{{id}}")
+
+
+  script(type='text/template' id='tripTableHeader')
+    .table.table-header
+      .select
+        input#selectall(type="checkbox" checked="")
+      .startTime Start Time
+      .endTime End Time
+      .duration Time
+      .startAddress Start Address
+      .endAddress End Address
+      .distance Dist
+      .mpg MPG
+      .fuelCost Fuel
+
+
+  script(type='text/template' id='tripTable')
+    a.trip.table(href="/trips/{{id}}")
+      .select
+        input(type="checkbox" checked="")
+      .startTime {{started_at}}
+      .endTime {{ended_at}}
+      .duration {{duration}}
+      .startAddress {{start_address}}
+      .endAddress {{end_address}}
+      .distance {{distance}}
+      .mpg {{average_mpg}}
+      .fuelCost {{fuel_cost_usd}}
+
+
   script(src="/javascripts/trips.js")

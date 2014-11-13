@@ -18,7 +18,7 @@ gulp.task('server', function () {
     //restart the server when file changes
     gulp.watch(['views/**/*.jade'], [server.run]);
     gulp.watch(['public/css/**/*.css'], server.notify);
-    gulp.watch(['public/javascripts/**/*.js'], ['jshint']);
+    //gulp.watch(['public/javascripts/**/*.js'], ['jshint']);
     gulp.watch(['public/images/**/*'], server.notify);
     gulp.watch(['app.js', 'routes/**/*.js'], [server.run]);
 });

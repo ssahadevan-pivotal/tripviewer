@@ -1,17 +1,19 @@
-var request = require('request')
-  , csv = require('express-csv')
-  , _ = require('underscore')
-  , moment = require('moment-timezone')
-  , async = require('async');
+var request = require('request'),
+    csv = require('express-csv'),
+    _ = require('underscore'),
+    async = require('async'),
+    apiUrl = 'https://api.automatic.com';
+
 
 exports.trips = function(req, res) {
   request.get({
-    uri: 'https://api.automatic.com/v1/trips',
+    uri: apiUrl + '/trip/',
     qs: { page: req.query.page },
-    headers: {Authorization: 'token ' + req.session.access_token}
+    headers: {Authorization: 'bearer ' + req.session.access_token},
+    json: true
   }, function(e, r, body) {
     try {
-      res.json(JSON.parse(body));
+      res.json(body.results);
     } catch(e) {
       console.log('error: ' + e);
       res.json(400, {'message': 'Invalid access_token'});
@@ -22,11 +24,12 @@ exports.trips = function(req, res) {
 
 exports.trip = function(req, res) {
   request.get({
-    uri: 'https://api.automatic.com/v1/trips/' + req.params.id,
-    headers: {Authorization: 'token ' + req.session.access_token}
+    uri: apiUrl + '/trip/' + req.params.id,
+    headers: {Authorization: 'bearer ' + req.session.access_token},
+    json: true
   }, function(e, r, body) {
     try {
-      res.json(JSON.parse(body));
+      res.json(body);
     } catch(e) {
       console.log('error: ' + e);
       res.json(400, {'message': 'Invalid access_token'});
@@ -36,74 +39,81 @@ exports.trip = function(req, res) {
 
 
 exports.vehicles = function(req, res) {
-  request.get({
-    uri: 'https://api.automatic.com/v1/vehicles/',
-    headers: {Authorization: 'token ' + req.session.access_token}
-  }, function(e, r, body) {
-    try {
-      res.json(JSON.parse(body));
-    } catch(e) {
+  downloadVehicles(req, function(e, vehicles) {
+    if(vehicles) {
+      res.json(vehicles);
+    } else {
       console.log('error: ' + e);
       res.json(400, {'message': 'Invalid access_token'});
     }
   });
-}
+};
 
 
 exports.downloadTripsJSON = function(req, res) {
-  try {
-    downloadAllTrips(req, function(e, trips) {
-      if(req.query.trip_ids) {
-        var trip_ids = req.query.trip_ids.split(',');
-        var trips = filterTrips(trips, trip_ids);
-      }
-      res.json(trips);
-    });
-  } catch(e) {
-    res.json(500, undefined);
-  }
+  async.parallel([
+    function(cb) { downloadAllTrips(req, cb); },
+    function(cb) { downloadVehicles(req, cb); }
+  ], function(e, data) {
+    res.json(mergeTripsAndVehicles(data[0], data[1]));
+  });
 };
 
 
 exports.downloadTripsCSV = function(req, res) {
-  try {
-    downloadAllTrips(req, function(e, trips) {
-      if(req.query.trip_ids) {
-        var trip_ids = req.query.trip_ids.split(',');
-        var trips = filterTrips(trips, trip_ids);
-      }
-      var tripsAsArray = trips.map(tripToArray);
-      tripsAsArray.unshift(fieldNames());
-
-      res.setHeader('Content-disposition', 'attachment; filename=trips.csv');
-      res.csv(tripsAsArray);
-    });
-  } catch(e) {
-    res.json(500, undefined);
-  }
+  async.parallel([
+    function(cb) { downloadAllTrips(req, cb); },
+    function(cb) { downloadVehicles(req, cb); }
+  ], function(e, data) {
+    var trips = mergeTripsAndVehicles(data[0], data[1]);
+    var tripsAsArray = trips.map(tripToArray);
+    tripsAsArray.unshift(fieldNames());
+    res.setHeader('Content-disposition', 'attachment; filename=trips.csv');
+    res.csv(tripsAsArray);
+  });
 };
 
 
 function downloadAllTrips(req, cb) {
-  var finished = false
-    , uri = 'https://api.automatic.com/v1/trips'
-    , trips = [];
-  async.until(function(){ return finished }, function(cb) {
+  var uri = apiUrl + '/trip/',
+      trips = [];
+  async.until(function(){ return !uri; }, function(cb) {
     request.get({
       uri: uri,
-      headers: {Authorization: 'token ' + req.session.access_token}
+      headers: {Authorization: 'bearer ' + req.session.access_token},
+      json: true,
+      qs: { limit: 25 }
     }, function(e, r, body) {
-      trips = trips.concat(JSON.parse(body));
-      link_headers = parse_link_header(r.headers['link']);
-      if(link_headers['next']) {
-        uri = link_headers['next'];
-      } else {
-        finished = true;
+
+      if(e || body.error) {
+        cb(new Error(e || body.error));
+        return;
       }
+
+      trips = trips.concat(body.results);
+      uri = body['_metadata'] ? body['_metadata'].next : undefined;
+
+      console.log(uri);
+
       cb();
     });
   }, function(e) {
+    if(req.query.trip_ids) {
+      var trip_ids = req.query.trip_ids.split(',');
+      trips = filterTrips(trips, trip_ids);
+    }
     cb(e, trips);
+  });
+}
+
+
+function downloadVehicles (req, cb) {
+  request.get({
+    uri: apiUrl + '/vehicle/',
+    headers: {Authorization: 'bearer ' + req.session.access_token},
+    json: true
+  }, function(e, r, body) {
+    cb(e, body.results);
   });
 }
 
@@ -112,7 +122,7 @@ function filterTrips(trips, trip_ids) {
   return _.filter(trips, function(trip) {
     return trip_ids.indexOf(trip.id) != -1;
   });
-}
+};
 
 
 function fieldNames() {
@@ -130,6 +140,7 @@ function fieldNames() {
     'End Time',
     'Path',
     'Distance (mi)',
+    'Duration (seconds)',
     'Hard Accelerations',
     'Hard Brakes',
     'Duration Over 80 mph (secs)',
@@ -138,76 +149,59 @@ function fieldNames() {
     'Fuel Cost (USD)',
     'Fuel Volume (gal)',
     'Average MPG'
-  ]
-}
+  ];
+};
 
 
 function tripToArray(t) {
   return [
     formatVehicle(t.vehicle),
-    t.start_location.name,
+    t.start_address.name,
     t.start_location.lat,
     t.start_location.lon,
     t.start_location.accuracy_m,
-    formatTime(t.start_time, t.start_time_zone),
-    t.end_location.name,
+    t.started_at,
+    t.end_address.name,
     t.end_location.lat,
     t.end_location.lon,
     t.end_location.accuracy_m,
-    formatTime(t.end_time, t.end_time_zone),
+    t.ended_at,
     t.path,
     formatDistance(t.distance_m),
+    t.duration_s,
     t.hard_accels,
     t.hard_brakes,
     t.duration_over_80_s,
     t.duration_over_75_s,
     t.duration_over_70_s,
     formatFuelCost(t.fuel_cost_usd),
-    t.fuel_volume_gal,
+    t.fuel_volume_usgal,
     t.average_mpg
-  ]
-}
-
-
-function formatTime(time, timezone) {
-  try {
-    return moment(time).tz(timezone).format('YYYY-MM-DD h:mm A');
-  } catch(e) {
-    return moment(time).format('YYYY-MM-DD h:mm A');
-  }
-}
+  ];
+};
 
 
 function formatVehicle(v) {
   return [(v.year || ''), (v.make || ''), (v.model || '')].join(' ');
-}
+};
 
 
 function formatDistance(distance) {
   //convert from m to mi
   return (distance / 1609.34).toFixed(2);
-}
+};
 
 
 function formatFuelCost(fuelCost) {
   return '$' + fuelCost.toFixed(2);
-}
+};
 
 
-/* From https://gist.github.com/niallo/3109252 */
-function parse_link_header(header) {
-  var links = {};
-  if (header) {
-    var parts = header.split(',');
-    parts.forEach(function(p) {
-      var section = p.split(';');
-      if (section.length != 2) {
-        throw new Error('section could not be split on ";"');
-      }
-      var url = section[0].replace(/<(.*)>/, '$1').trim();
-      var name = section[1].replace(/rel="(.*)"/, '$1').trim();
-      links[name] = url;
-    });
-  }
-  return links;
+function mergeTripsAndVehicles(trips, vehicles) {
+  var vehicleObj = _.object(_.pluck(vehicles, 'url'), vehicles);
+
+  return trips.map(function(trip) {
+    trip.vehicle = vehicleObj[trip.vehicle];
+    return trip;
+  });
 }

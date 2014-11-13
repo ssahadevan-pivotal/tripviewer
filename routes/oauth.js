@@ -1,16 +1,16 @@
-var nconf = require('nconf')
-  , request = require('request');
+var nconf = require('nconf'),
+    request = require('request');
 
 
 exports.authorize = function(req, res) {
   res.redirect(nconf.get('AUTOMATIC_AUTHORIZE_URL') + '?client_id=' + nconf.get('AUTOMATIC_CLIENT_ID') + '&response_type=code&scope=' + nconf.get('AUTOMATIC_SCOPES'))
-}
+};
 
 
 exports.logout = function(req, res) {
   req.session.destroy();
   res.redirect('/');
-}
+};
 
 
 exports.redirect = function(req, res) {
@@ -41,7 +41,7 @@ exports.redirect = function(req, res) {
       res.json({error: 'No access token'});
     }
   }
-}
+};
 
 
 exports.authenticate = function(req, res, next) {
@@ -50,4 +50,4 @@ exports.authenticate = function(req, res, next) {
   } else {
     next();
   }
-}
+};

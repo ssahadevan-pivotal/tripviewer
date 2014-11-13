@@ -25,7 +25,7 @@ function deleteCharts() {
 
 
 function getEmpty() {
-  return {distance_m: 0, duration: 0, trip_count: 0, fuel_volume_gal: 0, fuel_cost_usd: 0};
+  return {distance_m: 0, duration_s: 0, trip_count: 0, fuel_volume_usgal: 0, fuel_cost_usd: 0};
 }
 
 
@@ -57,9 +57,9 @@ function prepData(type) {
     };
     graphData.yAxisLabel = 'Distance (mi)';
     graphData.unitFomatter = function(d) { return d.value + ' miles'; };
-  } else if (type == 'duration') {
+  } else if (type == 'duration_s') {
     formatter = function(d) {
-      return formatDurationHours(d.values.duration);
+      return formatDurationHours(d.values.duration_s);
     };
     graphData.yAxisLabel = 'Duration (hours)';
     graphData.unitFomatter = function(d) { return d.value + ' hours'; };
@@ -75,9 +75,9 @@ function prepData(type) {
     };
     graphData.yAxisLabel = 'Fuel Cost (USD)';
     graphData.unitFomatter = function(d) { return '$' + formatFuelCost(d.value); };
-  } else if (type == 'fuel_volume_gal') {
+  } else if (type == 'fuel_volume_usgal') {
     formatter = function(d) {
-      return d.values.fuel_volume_gal;
+      return d.values.fuel_volume_usgal;
     };
     graphData.yAxisLabel = 'Fuel Volume (gal)';
     graphData.unitFomatter = function(d) { return formatFuelVolume(d.value) + ' gallons'; };
@@ -181,7 +181,7 @@ function drawGraph(graphData) {
         i = bisectDate(graphData.data, x0),
         d0 = graphData.data[i - 1],
         d1 = graphData.data[i],
-        d = x0 - d0.key > d1.key - x0 ? d1 : d0;
+        d = (!d0 || x0 - d0.key > d1.key - x0) ? d1 : d0;
     focus.attr('transform', 'translate(' + x(d.key) + ',' + y(d.value) + ')');
     focus.select('text.value').html(graphData.unitFomatter(d));
     focus.select('text.key').html(moment(d.key).format('MMM D, YYYY'));
