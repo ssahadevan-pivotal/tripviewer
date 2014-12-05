@@ -33,11 +33,13 @@ function processTrips(trips) {
   var summaryListTemplate = _.template($('#summaryList').html());
 
   weekly = d3.nest()
-    .key(function(d) { return moment(d.start_time).format('YYYY w'); })
+    .key(function(d) { return moment(d.started_at).format('YYYY w'); })
     .rollup(summarizeData)
     .entries(trips);
 
   weekly = weekly.reverse();
+
+  console.log(weekly);
 
   var totals = d3.nest()
     .rollup(summarizeData)

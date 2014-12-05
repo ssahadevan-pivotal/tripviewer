@@ -13,9 +13,9 @@ block scripts
     .trip.tile
       a(href="/trips/{{id}}")
         .times
-          .endTime {{ended_at}}
+          .endTime {{ended_at_formatted}}
           .duration {{duration}}
-          .startTime {{started_at}}
+          .startTime {{started_at_formatted}}
           .tripLine
             div
             div
@@ -50,8 +50,8 @@ block scripts
     a.trip.table(href="/trips/{{id}}")
       .select
         input(type="checkbox" checked="")
-      .startTime {{started_at}}
-      .endTime {{ended_at}}
+      .startTime {{started_at_formatted}}
+      .endTime {{ended_at_formatted}}
       .duration {{duration}}
       .startAddress {{start_address}}
       .endAddress {{end_address}}

@@ -2,6 +2,7 @@ var request = require('request'),
     csv = require('express-csv'),
     _ = require('underscore'),
     async = require('async'),
+    moment = require('moment-timezone'),
     apiUrl = 'https://api.automatic.com';
 
 
@@ -93,8 +94,6 @@ function downloadAllTrips(req, cb) {
       trips = trips.concat(body.results);
       uri = body['_metadata'] ? body['_metadata'].next : undefined;
 
-      console.log(uri);
-
       cb();
     });
   }, function(e) {
@@ -102,6 +101,10 @@ function downloadAllTrips(req, cb) {
       var trip_ids = req.query.trip_ids.split(',');
       trips = filterTrips(trips, trip_ids);
     }
+
+    trips = _.sortBy(trips, function(trip) {
+      return moment(trip.started_at).valueOf();
+    });
     cb(e, trips);
   });
 }

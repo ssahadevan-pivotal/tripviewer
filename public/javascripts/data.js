@@ -89,9 +89,9 @@ function clearCache() {
 function formatTrip(trip) {
   return _.extend(trip, {
     title: 'Drive to ' + formatAddress(trip.end_address) + ' on ' + formatDate(trip.started_at),
-    ended_at: formatTime(trip.ended_at),
+    ended_at_formatted: formatTime(trip.ended_at),
     duration: formatDuration(trip.duration_s),
-    started_at: formatTime(trip.started_at),
+    started_at_formatted: formatTime(trip.started_at),
     end_address: formatAddress(trip.end_address),
     distance: formatDistance(m_to_mi(trip.distance_m)),
     average_mpg: formatMPG(trip.average_mpg),
