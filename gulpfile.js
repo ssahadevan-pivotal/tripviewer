@@ -2,14 +2,12 @@ var gulp = require('gulp');
 var bower = require('gulp-bower');
 var server = require('gulp-express');
 
-gulp.task('default', function() {
+gulp.task('bower', function() {
   return bower()
     .pipe(gulp.dest('public/bower_components'));
 });
 
 gulp.task('server', function () {
-    //start the server at the beginning of the task
-    gulp.start('default');
 
     server.run({
         file: 'bin/www'
@@ -22,3 +20,5 @@ gulp.task('server', function () {
     gulp.watch(['public/images/**/*'], server.notify);
     gulp.watch(['app.js', 'routes/**/*.js'], [server.run]);
 });
+
+gulp.task('default', ['bower', 'server']);

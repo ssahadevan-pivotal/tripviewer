@@ -34,6 +34,6 @@
   "repository": "https://github.com/automatic/tripviewer",
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "node node_modules/.bin/gulp default"
+    "postinstall": "node node_modules/.bin/gulp bower"
   }
 }

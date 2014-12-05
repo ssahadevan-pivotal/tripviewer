@@ -33,7 +33,7 @@ Copy the file `config-sample.json` to `config.json` and add your Automatic clien
 
 ### Run the app
 
-    DEBUG=tripviewer gulp server
+    DEBUG=tripviewer gulp
 
 ### View the app
 
@@ -49,7 +49,7 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
 You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
 
-    TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp server
+    DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp
 
 ### Deploy to Heroku
 
