@@ -31,7 +31,7 @@ function renderVehicles(results) {
 
 function tripsByVehicle(trips) {
   var totals = d3.nest()
-    .key(function(d) { return d.vehicle; })
+    .key(function(d) { return d.vehicle.url; })
     .rollup(summarizeData)
     .entries(trips);
 

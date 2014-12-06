@@ -40,6 +40,16 @@ function m_to_mi(distance_m) {
 }
 
 
+function l_to_usgal(volume_l) {
+  return volume_l * 0.264172;
+}
+
+
+function kmpl_to_mpg(kmpl) {
+  return kmpl * 2.35214583;
+}
+
+
 function formatDistance(distance) {
   if(Math.round(distance) >= 100) {
     return distance.toFixed(0);
@@ -59,7 +69,8 @@ function formatFuelVolume(fuelVolume) {
 }
 
 
-function formatMPG(mpg) {
+function formatMPG(kmpl) {
+  var mpg = kmpl_to_mpg(kmpl);
   return (mpg) ? mpg.toFixed(1) : '';
 }
 

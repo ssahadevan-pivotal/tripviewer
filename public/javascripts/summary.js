@@ -39,8 +39,6 @@ function processTrips(trips) {
 
   weekly = weekly.reverse();
 
-  console.log(weekly);
-
   var totals = d3.nest()
     .rollup(summarizeData)
     .entries(trips);
@@ -88,7 +86,7 @@ function prepData(type) {
   graphData.data = weekly.map(function(d) {
     return {
       value: formatter(d),
-      key: moment(d.key, 'YYYY w').toDate()
+      key: moment(d.key, 'YYYY w').valueOf()
     }
   });
 
@@ -182,8 +180,9 @@ function drawGraph(graphData) {
     var x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(graphData.data, x0),
         d0 = graphData.data[i - 1],
-        d1 = graphData.data[i],
-        d = (!d0 || x0 - d0.key > d1.key - x0) ? d1 : d0;
+        d1 = graphData.data[i];
+
+    var d = (!d0 || x0 - d0.key > d1.key - x0) ? d1 : d0;
     focus.attr('transform', 'translate(' + x(d.key) + ',' + y(d.value) + ')');
     focus.select('text.value').html(graphData.unitFomatter(d));
     focus.select('text.key').html(moment(d.key).format('MMM D, YYYY'));

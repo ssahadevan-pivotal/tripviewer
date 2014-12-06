@@ -103,7 +103,7 @@ function downloadAllTrips(req, cb) {
     }
 
     trips = _.sortBy(trips, function(trip) {
-      return moment(trip.started_at).valueOf();
+      return -moment(trip.started_at).valueOf();
     });
     cb(e, trips);
   });
@@ -150,7 +150,7 @@ function fieldNames() {
     'Duration Over 75 mph (secs)',
     'Duration Over 70 mph (secs)',
     'Fuel Cost (USD)',
-    'Fuel Volume (gal)',
+    'Fuel Volume (l)',
     'Average MPG'
   ];
 };
@@ -178,7 +178,7 @@ function tripToArray(t) {
     t.duration_over_75_s,
     t.duration_over_70_s,
     formatFuelCost(t.fuel_cost_usd),
-    t.fuel_volume_usgal,
+    t.fuel_volume_l,
     t.average_mpg
   ];
 };
