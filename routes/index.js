@@ -28,12 +28,10 @@ exports.force_https = function(req, res, next) {
   } else {
     next();
   }
-}
+};
 
 
 exports.check_dev_token = function(req, res, next) {
-  if(process.env.TOKEN) {
-    req.session.access_token = process.env.TOKEN;
-  }
+  req.session.access_token = process.env.TOKEN;
   next();
-}
+};

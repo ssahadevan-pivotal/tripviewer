@@ -19,15 +19,19 @@ function hideAlert() {
 }
 
 
-function formatDuration(ms) {
-  var mins = Math.floor(ms % (60 * 60 * 1000) / (60 * 1000));
-  var hours = Math.floor(ms / (60 * 60 * 1000));
-  return ((hours > 0) ? hours + 'h ' : '') + mins + 'min';
+function formatDuration(s) {
+  var duration = moment.duration(s, 'seconds');
+  return ((duration.hours() > 0) ? duration.hours() + 'h ' : '') + duration.minutes() + 'min';
 }
 
 
-function formatDurationHours(ms) {
-  return Math.round(ms / (60 * 60 * 1000) * 100) / 100;
+function formatDurationMinutes(s) {
+  return moment.duration(s, 'seconds').asMinutes().toFixed();
+}
+
+
+function formatDurationHours(s) {
+  return moment.duration(s, 'seconds').asHours().toFixed();
 }
 
 
@@ -36,32 +40,43 @@ function m_to_mi(distance_m) {
 }
 
 
+function l_to_usgal(volume_l) {
+  return volume_l * 0.264172;
+}
+
+
+function kmpl_to_mpg(kmpl) {
+  return kmpl * 2.35214583;
+}
+
+
 function formatDistance(distance) {
   if(Math.round(distance) >= 100) {
     return distance.toFixed(0);
   } else {
-    return distance.toFixed(1);
+    return (distance || 0).toFixed(1);
   }
 }
 
 
 function formatFuelCost(fuelCost) {
-  return fuelCost.toFixed(2);
+  return (fuelCost || 0).toFixed(2);
 }
 
 
 function formatFuelVolume(fuelVolume) {
-  return fuelVolume.toFixed(1);
+  return (fuelVolume || 0).toFixed(1);
 }
 
 
-function formatMPG(mpg) {
-  return mpg.toFixed(1);
+function formatMPG(kmpl) {
+  var mpg = kmpl_to_mpg(kmpl);
+  return (mpg) ? mpg.toFixed(1) : '';
 }
 
 
-function formatLocation(location) {
-  return (location) ? location.replace(/\d+, USA/gi, '') : '';
+function formatAddress(address) {
+  return (address && address.name) ? address.name.replace(/\d+, USA/gi, '') : '';
 }
 
 
@@ -101,7 +116,7 @@ function formatTripCount(trip_count) {
   if(trip_count == 1) {
     return trip_count + ' Trip';
   } else {
-    return trip_count + ' Trips';
+    return (trip_count || 0) + ' Trips';
   }
 }
 
@@ -162,10 +177,10 @@ function drawMap(trip) {
   });
 
   L.marker([trip.start_location.lat, trip.start_location.lon], {title: 'Start Location', icon: aIcon})
-    .bindPopup(trip.start_location.name + '<br>' + formatTime(trip.start_time, trip.start_time_zone))
+    .bindPopup(trip.start_location.name + '<br>' + formatTime(trip.started_at, trip.start_timezone))
     .addTo(map);
   L.marker([trip.end_location.lat, trip.end_location.lon], {title: 'End Location', icon: bIcon})
-    .bindPopup(trip.end_location.name + '<br>' + formatTime(trip.end_time, trip.end_time_zone))
+    .bindPopup(trip.end_location.name + '<br>' + formatTime(trip.ended_at, trip.end_timezone))
     .addTo(map);
 }
 
@@ -173,12 +188,12 @@ function drawMap(trip) {
 function summarizeData(d) {
   var summary = {
     distance_m: d3.sum(d, function(d) { return +d.distance_m; }),
-    duration: d3.sum(d, function(d) { return +(d.end_time - d.start_time); }),
+    duration_s: d3.sum(d, function(d) { return +d.duration_s; }),
     trip_count: d.length,
-    fuel_volume_gal: d3.sum(d, function(d) { return +d.fuel_volume_gal; }),
+    fuel_volume_usgal: d3.sum(d, function(d) { return +d.fuel_volume_usgal; }),
     fuel_cost_usd: d3.sum(d, function(d) { return +d.fuel_cost_usd; })
   };
-  summary.average_mpg = m_to_mi(summary.distance_m) / summary.fuel_volume_gal;
+  summary.average_mpg = m_to_mi(summary.distance_m) / summary.fuel_volume_usgal;
 
   return summary;
 }

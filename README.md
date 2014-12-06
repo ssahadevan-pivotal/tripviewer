@@ -2,13 +2,24 @@
 
 ## A sample app using the Automatic REST API
 
-Tripviewer is a node.js app that allows users to view and export trips taken using [Automatic](http://automatic.com).  It demonstrates the use of the [Automatic REST API](http://automatic.com/developer).
+Tripviewer is a node.js app that allows users to view and export trips taken using [Automatic](http://automatic.com).  It demonstrates the use of the [Automatic REST API](http://developer.automatic.com).
 
 ## Demo
 
 A demo version of this application is available at [https://tripviewer.herokuapp.com](https://tripviewer.herokuapp.com).
 
 ## Running
+
+
+### Prerequisites
+
+Install node.js
+
+    brew install node
+
+Install Gulp
+
+    npm install gulp -g
 
 ### Install required modules
 
@@ -22,7 +33,7 @@ Copy the file `config-sample.json` to `config.json` and add your Automatic clien
 
 ### Run the app
 
-    gulp server
+    DEBUG=tripviewer gulp
 
 ### View the app
 
@@ -38,7 +49,7 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
 You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
 
-    TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp server
+    DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp
 
 ### Deploy to Heroku
 

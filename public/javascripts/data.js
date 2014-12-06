@@ -4,7 +4,7 @@ function fetchTrips(cb) {
     showLoading();
     $.getJSON('/download/trips.json')
       .done(function(results) {
-        trips = results;
+        trips = results.map(formatTrip);
         cacheTrips(trips);
         cb(trips);
         hideLoading();
@@ -26,7 +26,7 @@ function fetchTrip(trip_id, cb) {
       .done(function(data) {
         hideLoading();
         if(data) {
-          cb(data);
+          cb(formatTrip(data));
         } else {
           showAlert('No trips found', 'warning');
         }
@@ -49,7 +49,6 @@ function fetchVehicles(cb) {
         vehicles = results;
         cacheVehicles(vehicles);
         cb(vehicles);
-        hideLoading();
       })
       .fail(function(jqhxr, textStatus, error) {
         showAlert('Unable to fetch vehicles (' +jqhxr.status + ' ' + error + ')', 'danger');
@@ -83,4 +82,26 @@ function getCachedTrips() {
 
 function clearCache() {
   sessionStorage.clear();
+}
+
+
+function formatTrip(trip) {
+  return _.extend(trip, {
+    title: 'Drive to ' + formatAddress(trip.end_address) + ' on ' + formatDate(trip.started_at),
+    ended_at_formatted: formatTime(trip.ended_at),
+    duration: formatDuration(trip.duration_s),
+    started_at_formatted: formatTime(trip.started_at),
+    end_address: formatAddress(trip.end_address),
+    distance: formatDistance(m_to_mi(trip.distance_m)),
+    average_mpg: formatMPG(trip.average_kmpl),
+    fuel_cost_usd: formatFuelCost(trip.fuel_cost_usd),
+    hard_brakes_class: (trip.hard_brakes > 0 ? 'someHardBrakes' : 'noHardBrakes'),
+    hard_brakes: trip.hard_brakes || '<i class="glyphicon glyphicon-ok"></i>',
+    hard_accels_class: (trip.hard_accels > 0 ? 'someHardAccels' : 'noHardAccels'),
+    hard_accels: trip.hard_accels || '<i class="glyphicon glyphicon-ok"></i>',
+    speeding_class: (formatSpeeding(trip.duration_over_70_s) > 0 ? 'someSpeeding' : 'noSpeeding'),
+    speeding: Math.ceil(trip.duration_over_70_s/60) || '<i class="glyphicon glyphicon-ok"></i>',
+    start_address: formatAddress(trip.start_address),
+    fuel_volume_usgal: l_to_usgal(trip.fuel_volume_l)
+  });
 }
