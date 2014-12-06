@@ -46,6 +46,7 @@ function fetchVehicles(cb) {
     showLoading();
     $.getJSON('/api/vehicles/')
       .done(function(results) {
+        hideLoading();
         vehicles = results;
         cacheVehicles(vehicles);
         cb(vehicles);
