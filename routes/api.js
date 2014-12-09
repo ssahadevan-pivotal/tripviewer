@@ -77,36 +77,63 @@ exports.downloadTripsCSV = function(req, res) {
 
 function downloadAllTrips(req, cb) {
   var uri = apiUrl + '/trip/',
-      trips = [];
-  async.until(function(){ return !uri; }, function(cb) {
-    request.get({
-      uri: uri,
-      headers: {Authorization: 'bearer ' + req.session.access_token},
-      json: true,
-      qs: { limit: 25 }
-    }, function(e, r, body) {
+      trips;
 
-      if(e || body.error) {
-        cb(new Error(e || body.error));
-        return;
-      }
+  //get first page of trips
+  request.get({
+    uri: uri,
+    headers: {Authorization: 'bearer ' + req.session.access_token},
+    json: true,
+    qs: { limit: 25 }
+  }, function(e, r, body) {
+    if(e || body.error) {
+      cb(new Error(e || body.error));
+      return;
+    }
 
-      trips = trips.concat(body.results);
-      uri = body['_metadata'] ? body['_metadata'].next : undefined;
+    trips = body.results;
+    var count = body['_metadata'] ? body['_metadata'].count : 0,
+        pages = _.range(2, (Math.ceil(count / 25) + 1));
 
-      cb();
-    });
-  }, function(e) {
+    if(count <= 25) {
+      //no more pages
+      filterAndSendTrips();
+    } else {
+      //get the next set of pages in parallel
+      async.concat(pages, function(page, cb) {
+        request.get({
+          uri: uri,
+          headers: {Authorization: 'bearer ' + req.session.access_token},
+          json: true,
+          qs: {
+            limit: 25,
+            page: page
+          }
+        }, function(e, r, body) {
+          cb(e, body.results);
+        });
+      }, function(e, results) {
+        trips = trips.concat(results);
+
+        filterAndSendTrips(e);
+      });
+    }
+  });
+
+  function filterAndSendTrips(e) {
+    //if requesting only specific trips, just get those
     if(req.query.trip_ids) {
       var trip_ids = req.query.trip_ids.split(',');
       trips = filterTrips(trips, trip_ids);
     }
 
+    //sort trips by date
     trips = _.sortBy(trips, function(trip) {
       return -moment(trip.started_at).valueOf();
     });
+
     cb(e, trips);
-  });
+  }
 }
 
 
