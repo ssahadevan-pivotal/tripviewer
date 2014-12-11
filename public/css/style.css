@@ -125,6 +125,7 @@ h2.pageTitle {
   padding: 8px 4px;
   vertical-align: middle;
   box-sizing: border-box;
+  height: 50px;
 }
 
 .trip.table:nth-child(odd)>div {
@@ -139,16 +140,13 @@ h2.pageTitle {
   margin-top: 0;
 }
 
-.table .startTime {
-  width: 129px;
-}
-
+.table .startTime,
 .table .endTime {
-  width: 129px;
+  width: 90px;
 }
 
 .table .duration {
-  width: 65px;
+  width: 85px;
 }
 
 .table .startAddress,
@@ -157,17 +155,17 @@ h2.pageTitle {
 }
 
 .table .distance {
-  width: 45px;
+  width: 65px;
   text-align: right;
 }
 
 .table .mpg {
-  width: 45px;
+  width: 65px;
   text-align: right;
 }
 
 .table .fuelCost {
-  width: 45px;
+  width: 65px;
   text-align: right;
 }
 

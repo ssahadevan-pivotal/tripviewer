@@ -38,7 +38,7 @@ block scripts
         input#selectall(type="checkbox" checked="")
       .startTime Start Time
       .endTime End Time
-      .duration Time
+      .duration Duration
       .startAddress Start Address
       .endAddress End Address
       .distance Dist
@@ -55,9 +55,9 @@ block scripts
       .duration {{duration}}
       .startAddress {{start_address}}
       .endAddress {{end_address}}
-      .distance {{distance}}
+      .distance {{distance}} mi
       .mpg {{average_mpg}}
-      .fuelCost {{fuel_cost_usd}}
+      .fuelCost ${{fuel_cost_usd}}
 
 
   script(src="/javascripts/trips.js")
