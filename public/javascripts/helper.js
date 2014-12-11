@@ -20,8 +20,10 @@ function hideAlert() {
 
 
 function formatDuration(s) {
-  var duration = moment.duration(s, 'seconds');
-  return ((duration.hours() > 0) ? duration.hours() + 'h ' : '') + duration.minutes() + 'min';
+  var duration = moment.duration(s, 'seconds'),
+      hours = (duration.asHours() >= 1) ? Math.floor(duration.asHours()) + ' h ' : '',
+      minutes = duration.minutes() + ' min';
+  return hours + minutes;
 }
 
 
