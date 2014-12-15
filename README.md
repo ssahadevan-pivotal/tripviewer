@@ -65,8 +65,8 @@ Configure the heroku app's environment variables:
 
     heroku config:add AUTOMATIC_CLIENT_ID="YOUR AUTOMATIC CLIENT ID"
     heroku config:add AUTOMATIC_CLIENT_SECRET="YOUR AUTOMATIC CLIENT SECRET"
-    heroku config:add AUTOMATIC_AUTHORIZE_URL=https://www.automatic.com/oauth/authorize/
-    heroku config:add AUTOMATIC_AUTH_TOKEN_URL=https://www.automatic.com/oauth/access_token/
+    heroku config:add AUTOMATIC_AUTHORIZE_URL=https://accounts.automatic.com/oauth/authorize/
+    heroku config:add AUTOMATIC_AUTH_TOKEN_URL=https://accounts.automatic.com/oauth/access_token/
 
 Deploy your app to heroku:
 
