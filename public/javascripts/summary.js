@@ -113,7 +113,8 @@ function drawGraph(graphData) {
   var xAxis = d3.svg.axis()
       .scale(x)
       .orient('bottom')
-      .ticks(d3.time.month);
+      .ticks(d3.time.month)
+      .tickFormat(d3.time.format("%b"));
 
   var yAxis = d3.svg.axis()
       .scale(y)
