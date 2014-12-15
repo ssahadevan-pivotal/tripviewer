@@ -1,5 +1,6 @@
 body {
-  background: #e1e1e1;
+  font-family: Avenir;
+  background: #e1e1e1 url(../images/climpek.png) 0 0;
 }
 
 #wrapper {
@@ -22,6 +23,7 @@ h2.pageTitle {
 .titlebar {
   margin-top: 0;
   margin-bottom: 5px;
+  margin-left: 10px;
   letter-spacing: 3px;
   font-size: 44px;
   font-weight: bold;
@@ -29,12 +31,12 @@ h2.pageTitle {
 
 .tagline {
   color: #666;
+  margin-left: 10px;
 }
 
 #refresh {
   float: right;
   margin-top: 14px;
-  margin-right: 16px;
 }
 
 #topmenu {
@@ -56,17 +58,24 @@ h2.pageTitle {
 }
 
 .sign-in {
-  margin-top: 20px;
+  margin-top: 30px;
+  clear: both;
 }
 
-.sign-in .btn-sign-in {
+.sign-in .btn {
   display: block;
   margin: 0 auto;
-  width: 240px;
-  height: 39px;
-  margin-top: 12px;
-  background: url(../images/signin.png) 0 0 no-repeat;
-  text-indent: -9999px;
+  width: 250px;
+  margin-top: 60px;
+}
+
+.sign-in .btn .automatic-logo {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  background: url(/images/automatic-logo.png) 0 0 no-repeat;
 }
 
 .display-type {
@@ -644,10 +653,18 @@ text.key {
   float: right;
 }
 
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) and (min-resolution: 144dpi) {
-  .sign-in .btn-sign-in {
-    background-image: url(../images/signin@2x.png);
-    background-size: 240px 39px;
+@media (min--moz-device-pixel-ratio: 1.5),
+(-o-min-device-pixel-ratio: 3/2),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+  body {
+    background-image: url(../images/climpek@2x.png);
+    background-size: 44px 44px;
+  }
+  .sign-in .btn .automatic-logo {
+    background-image: url(../images/automatic-logo@2x.png);
+    background-size: 22px 24px;
   }
 }
