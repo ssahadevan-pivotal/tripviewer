@@ -87,6 +87,10 @@ function clearCache() {
 
 
 function formatTrip(trip) {
+  if(!trip.vehicle) {
+    trip.vehicle = {};
+  }
+
   return _.extend(trip, {
     title: 'Drive to ' + formatAddress(trip.end_address) + ' on ' + formatDate(trip.started_at),
     ended_at_formatted: formatTime(trip.ended_at),
