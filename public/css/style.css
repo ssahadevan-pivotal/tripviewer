@@ -3,15 +3,56 @@ body {
   background: #e1e1e1 url(../images/climpek.png) 0 0;
 }
 
-#wrapper {
-  width: 1000px;
+.wrapper {
+  width: 940px;
+  padding: 0 20px;
   margin: 0 auto;
-  background: #FFF;
-  overflow: hidden;
-  padding: 10px 20px 20px 20px;
   position: relative;
-  border: 1px solid #ccc;
-  min-height: 420px;
+}
+.wrapper.content {
+  background: #ffffff;
+  padding: 20px;
+  overflow: hidden;
+}
+.mainHeader {
+  min-width: 924px;
+  max-height: 70px;
+  border-bottom: 1px solid #D8D8D8;
+  height: 70px;
+  background: #F5F4F1;
+  padding: 0 30px;
+}
+
+.mainHeader .logo {
+  background: url(../images/automatic-logo-header.png) 0 0 no-repeat;
+  width: 119px;
+  height: 33px;
+  float: left;
+  margin: 18px 0;
+  display: inline;
+  vertical-align: middle;
+}
+
+.mainHeader .navbar {
+  background: none;
+  border: none;
+  padding-top: 4px;
+  margin-bottom: 0;
+}
+
+.mainHeader nav {
+  float: right;
+  width: 475px;
+}
+
+.mainHeader .navbar-nav>li>a {
+  line-height: 39px;
+}
+
+.mainHeader .navbar-toggle {
+  margin-bottom: 0;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 h2.pageTitle {
@@ -19,19 +60,22 @@ h2.pageTitle {
   display: inline-block;
 }
 
-
 .titlebar {
+  width: 254px;
+  float: left;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+.titlebar h1 {
   margin-top: 0;
-  margin-bottom: 5px;
-  margin-left: 10px;
+  margin-bottom: 0;
   letter-spacing: 3px;
-  font-size: 44px;
+  font-size: 28px;
   font-weight: bold;
 }
-
 .tagline {
   color: #666;
-  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 #refresh {
@@ -40,10 +84,9 @@ h2.pageTitle {
 }
 
 #topmenu {
-  position: absolute;
-  top: 28px;
-  right: 20px;
-  width: 650px;
+  margin-right: 15px;
+  padding-top: 0;
+  height: 70px;
 }
 
 .alert {
@@ -160,7 +203,7 @@ h2.pageTitle {
 
 .table .startAddress,
 .table .endAddress {
-  width: 238px;
+  width: 209px;
 }
 
 .table .distance {
@@ -412,7 +455,7 @@ h2.pageTitle {
 }
 
 .trip.tile .map {
-  width: 450px;
+  width: 400px;
   height: 183px;
   float: right;
 }
@@ -505,7 +548,7 @@ h2.pageTitle {
 }
 
 #trip .map {
-  width: 500px;
+  width: 465px;
   height: 360px;
   float: left;
 }
@@ -626,12 +669,12 @@ text.key {
 
 #vehicles .vehicle .vehicleStats {
   display: inline-block;
-  width: 490px;
+  width: 430px;
   vertical-align: top;
 }
 
 #vehicles .vehicle .vehicleStats>div {
-  width: 219px;
+  width: 215px;
   float: left;
   padding-left: 30px;
   font-size: 15px;
@@ -662,6 +705,10 @@ text.key {
   body {
     background-image: url(../images/climpek@2x.png);
     background-size: 44px 44px;
+  }
+  .mainHeader .logo {
+    background-image: url(../images/automatic-logo-header@2x.png);
+    background-size: 119px 33px;
   }
   .sign-in .btn .automatic-logo {
     background-image: url(../images/automatic-logo@2x.png);
