@@ -2,7 +2,6 @@ body {
   font-family: Avenir;
   background: #e1e1e1 url(../images/climpek.png) 0 0;
 }
-
 .wrapper {
   width: 940px;
   padding: 0 20px;
@@ -22,7 +21,6 @@ body {
   background: #F5F4F1;
   padding: 0 30px;
 }
-
 .mainHeader .logo {
   background: url(../images/automatic-logo-header.png) 0 0 no-repeat;
   width: 119px;
@@ -32,34 +30,28 @@ body {
   display: inline;
   vertical-align: middle;
 }
-
 .mainHeader .navbar {
   background: none;
   border: none;
   padding-top: 4px;
   margin-bottom: 0;
 }
-
 .mainHeader nav {
   float: right;
   width: 475px;
 }
-
 .mainHeader .navbar-nav>li>a {
   line-height: 39px;
 }
-
 .mainHeader .navbar-toggle {
   margin-bottom: 0;
   margin-right: 20px;
   cursor: pointer;
 }
-
 h2.pageTitle {
   float: left;
   display: inline-block;
 }
-
 .titlebar {
   width: 254px;
   float: left;
@@ -77,41 +69,34 @@ h2.pageTitle {
   color: #666;
   margin-bottom: 10px;
 }
-
 #refresh {
   float: right;
   margin-top: 14px;
 }
-
 #topmenu {
   margin-right: 15px;
   padding-top: 0;
   height: 70px;
 }
-
 .alert {
   clear: both;
   display: none;
   margin-top: 20px;
 }
-
 .description {
   font-size: 16px;
   line-height: 24px;
 }
-
 .sign-in {
   margin-top: 30px;
   clear: both;
 }
-
 .sign-in .btn {
   display: block;
   margin: 0 auto;
   width: 250px;
   margin-top: 60px;
 }
-
 .sign-in .btn .automatic-logo {
   height: 24px;
   width: 24px;
@@ -120,33 +105,26 @@ h2.pageTitle {
   margin-right: 5px;
   background: url(/images/automatic-logo.png) 0 0 no-repeat;
 }
-
 .display-type {
   margin-top: 20px;
 }
-
 .panel-heading {
   font-weight: bold;
 }
-
 #graphs .graph {
   height: 227px;
 }
-
 #trips {
   clear: both;
   margin-top: 30px;
   color: #777;
 }
-
 #trips a {
   color: #777;
 }
-
 .table-header {
   display: none;
 }
-
 .table-header>div {
   display: inline-block;
   font-weight: bold;
@@ -154,23 +132,19 @@ h2.pageTitle {
   padding: 0 4px;
   box-sizing: border-box;
 }
-
 #trips .table {
   margin-bottom: 0;
   border-top: 1px solid rgb(221, 221, 221);
   color: rgb(51, 51, 51);
   display: block;
 }
-
 #trips .table:first-child {
   border-top: 2px solid rgb(221, 221, 221);
 }
-
 #trips.table .table-header {
   display: block;
   padding: 8px 0;
 }
-
 .trip.table>div {
   display: inline-block;
   font-size: 12px;
@@ -179,54 +153,43 @@ h2.pageTitle {
   box-sizing: border-box;
   height: 50px;
 }
-
 .trip.table:nth-child(odd)>div {
   background-color: #f9f9f9;
 }
-
 .table .select {
   width: 22px;
 }
-
 .table .select input {
   margin-top: 0;
 }
-
 .table .startTime,
 .table .endTime {
   width: 90px;
 }
-
 .table .duration {
   width: 85px;
 }
-
 .table .startAddress,
 .table .endAddress {
   width: 209px;
 }
-
 .table .distance {
   width: 65px;
   text-align: right;
 }
-
 .table .mpg {
   width: 65px;
   text-align: right;
 }
-
 .table .fuelCost {
   width: 65px;
   text-align: right;
 }
-
 .trip.tile {
   overflow: hidden;
   background: #e5e5e5;
   margin: 25px 0;
 }
-
 .trip.tile .times {
   width: 100px;
   float: left;
@@ -234,16 +197,13 @@ h2.pageTitle {
   padding: 10px;
   position: relative;
 }
-
 .trip.tile .duration {
   margin-top: 41px;
   font-weight: bold;
 }
-
 .trip.tile .startTime {
   margin-top: 37px;
 }
-
 .trip.tile .tripLine {
   position: absolute;
   width: 6px;
@@ -252,7 +212,6 @@ h2.pageTitle {
   right: 0px;
   top: 16px;
 }
-
 .trip.tile .tripLine div {
   width: 18px;
   height: 18px;
@@ -261,29 +220,24 @@ h2.pageTitle {
   border-radius: 9px;
   margin-left: -6px;
 }
-
 .trip.tile .tripLine div:first-child {
   margin-top: -3px;
 }
-
 .trip.tile .tripLine div:last-child {
   position: absolute;
   bottom: 0;
 }
-
 .trip.tile .tripSummary {
   float: left;
   width: 400px;
   padding: 10px;
   pointer: cursor;
 }
-
 .trip.tile .startAddress,
 .trip.tile .endAddress {
   font-size: 18px;
   padding-left: 10px;
 }
-
 .trip.tile .tripSummaryBox {
   background: #fff;
   border: 1px solid #ccc;
@@ -292,7 +246,6 @@ h2.pageTitle {
   margin: 8px 0;
   overflow: hidden;
 }
-
 .trip.tile .distance {
   width: 33%;
   float: left;
@@ -300,13 +253,11 @@ h2.pageTitle {
   font-weight: bold;
   margin-bottom: 14px;
 }
-
 .trip.tile .distance::after {
   content: ' MILES';
   font-size: 14px;
   font-weight: normal;
 }
-
 .trip.tile .mpg {
   width: 33%;
   float: left;
@@ -315,13 +266,11 @@ h2.pageTitle {
   margin-bottom: 14px;
   text-align: center;
 }
-
 .trip.tile .mpg::after {
   content: ' MPG';
   font-size: 14px;
   font-weight: normal;
 }
-
 .trip.tile .fuelCost {
   width: 33%;
   float: left;
@@ -329,7 +278,6 @@ h2.pageTitle {
   font-weight: bold;
   text-align: right;
 }
-
 .trip.tile .fuelCost::before {
   content: '$';
   font-size: 14px;
@@ -337,7 +285,6 @@ h2.pageTitle {
   padding-right: 4px;
   vertical-align: 9px;
 }
-
 .trip.tile .fuelCost::after {
   width: 21px;
   height: 28px;
@@ -345,7 +292,6 @@ h2.pageTitle {
   content: ' ';
   display: inline-block;
 }
-
 .trip.tile .hardBrakes {
   clear: both;
   float: left;
@@ -358,7 +304,6 @@ h2.pageTitle {
   margin-right: 115px;
   position: relative;
 }
-
 .trip.tile .hardBrakes::after {
   content: 'Rough Brakes';
   font-size: 10px;
@@ -369,20 +314,16 @@ h2.pageTitle {
   margin-left: 13px;
   color: #777;
 }
-
 .trip.tile .hardBrakes.someHardBrakes::after {
   margin-left: 10px;
 }
-
 .trip.tile .hardBrakes.noHardBrakes {
   color: #FFF;
   background: #7fb75c;
 }
-
 .trip.tile .hardBrakes.someHardBrakes {
   background: #ffc701;
 }
-
 .trip.tile .hardAccels {
   float: left;
   width: 21px;
@@ -394,7 +335,6 @@ h2.pageTitle {
   margin-right: 115px;
   position: relative;
 }
-
 .trip.tile .hardAccels::after {
   content: 'Hard Accels';
   font-size: 10px;
@@ -405,16 +345,13 @@ h2.pageTitle {
   margin-left: 13px;
   color: #777;
 }
-
 .trip.tile .hardAccels.noHardAccels {
   color: #FFF;
   background: #7fb75c;
 }
-
 .trip.tile .hardAccels.someHardAccels {
   background: #ffc701;
 }
-
 .trip.tile .durationOver70 {
   float: left;
   width: 21px;
@@ -425,7 +362,6 @@ h2.pageTitle {
   position: relative;
   border-radius: 3px;
 }
-
 .trip.tile .durationOver70::after {
   content: 'Under 70 MPH';
   font-size: 10px;
@@ -437,29 +373,24 @@ h2.pageTitle {
   width: 40px;
   color: #777;
 }
-
 .trip.tile .durationOver70.someSpeeding::after {
   content: 'Min Over 70 MPH';
   color: #777;
   width: 42px;
 }
-
 .trip.tile .durationOver70.noSpeeding {
   background: #7fb75c;
   color: #FFF
 }
-
 .trip.tile .durationOver70.someSpeeding {
   color: #FFF;
   background: #fe8c0a;
 }
-
 .trip.tile .map {
   width: 400px;
   height: 183px;
   float: right;
 }
-
 .loading {
   text-align: center;
   font-size: 20px;
@@ -473,12 +404,10 @@ h2.pageTitle {
   margin-right: -100px;
   border-radius: 4px;
   border: 1px solid #ddd;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
   display: none;
 }
-
-
 .github-fork-ribbon {
   position: absolute;
   padding: 2px 0;
@@ -489,23 +418,20 @@ h2.pageTitle {
   background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.15));
   background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.15));
   background-image: linear-gradient(top, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.15));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#000000', EndColorStr='#000000');
+  filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#000000', EndColorStr='#000000');
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
-
   z-index: 9999;
   pointer-events: auto;
-
   top: 42px;
   right: -43px;
-
   /* Rotate the banner 45 degrees */
+
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-
 .github-fork-ribbon a,
 .github-fork-ribbon a:hover {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -513,7 +439,7 @@ h2.pageTitle {
   font-weight: 700;
   color: white;
   text-decoration: none;
-  text-shadow: 0 -1px rgba(0,0,0,0.5);
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
   text-align: center;
   width: 200px;
   line-height: 20px;
@@ -521,9 +447,8 @@ h2.pageTitle {
   padding: 2px 0;
   border-width: 1px 0;
   border-style: dotted;
-  border-color: rgba(255,255,255,0.7);
+  border-color: rgba(255, 255, 255, 0.7);
 }
-
 .github-fork-ribbon-wrapper {
   width: 150px;
   height: 150px;
@@ -534,25 +459,20 @@ h2.pageTitle {
   pointer-events: none;
   right: 0;
 }
-
 .btn.back {
   margin-top: 15px;
 }
-
 #trip {
   overflow: hidden;
 }
-
 #trip h2 {
   margin-top: 15px;
 }
-
 #trip .map {
   width: 465px;
   height: 360px;
   float: left;
 }
-
 #trip .trip.tile {
   width: 435px;
   height: 360px;
@@ -561,12 +481,10 @@ h2.pageTitle {
   position: relative;
   padding: 15px;
 }
-
 #trip .trip.tile .tripSummary {
   width: 295px;
   margin-left: 10px;
 }
-
 #trip .trip.tile .distance,
 #trip .trip.tile .mpg,
 #trip .trip.tile .fuelCost {
@@ -575,89 +493,73 @@ h2.pageTitle {
   text-align: left;
   width: 60%;
 }
-
 #trip .trip.tile .hardBrakes,
 #trip .trip.tile .hardAccels,
 #trip .trip.tile .durationOver70 {
-    display: inline-block;
-    float: none;
-    vertical-align: 7px;
-    margin-right: 70px;
+  display: inline-block;
+  float: none;
+  vertical-align: 7px;
+  margin-right: 70px;
 }
-
 #trip .trip.tile .duration {
   font-size: 16px;
   margin-top: 76px;
 }
-
 #trip .trip.tile .startTime {
   margin-top: 76px;
 }
-
 #trip .trip.tile .tripLine {
   height: 227px;
 }
-
 .axis path,
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
 .x.axis path,
 .y.axis path {
   display: none;
 }
-
 .line {
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
-
 .overlay {
   fill: none;
   pointer-events: all;
 }
-
 .focus circle {
   fill: none;
   stroke: steelblue;
 }
-
 text.key {
   fill: #666;
   font-size: 11px;
 }
-
 #vehicles {
   clear: both;
 }
-
 #vehicles .vehicle {
   padding: 15px 20px;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
-
 #vehicles .vehicle:first-child {
   border-top: 1px solid #ccc;
 }
-
 #vehicles .vehicle .vehicleDetails {
   width: 250px;
   display: inline-block;
   vertical-align: top;
   height: 53px;
 }
-
 #vehicles .vehicle .vehicleDetails .display_name {
   font-size: 22px;
   font-weight: bold;
   display: block;
 }
-
 #vehicles .vehicle .color {
   width: 175px;
   height: 52px;
@@ -666,13 +568,11 @@ text.key {
   background-size: 175px 52px;
   display: inline-block;
 }
-
 #vehicles .vehicle .vehicleStats {
   display: inline-block;
   width: 430px;
   vertical-align: top;
 }
-
 #vehicles .vehicle .vehicleStats>div {
   width: 215px;
   float: left;
@@ -680,22 +580,18 @@ text.key {
   font-size: 15px;
   padding-bottom: 7px;
 }
-
 #vehicles .vehicle .vehicleStats:nth-child(2) {
   clear: left;
 }
-
 #vehicles .vehicle .vehicleStats .trip_count {
   position: absolute;
   top: 30px;
   left: 300px;
   font-weight: bold;
 }
-
 #vehicles .vehicle .vehicleStats span.badge {
   float: right;
 }
-
 @media (min--moz-device-pixel-ratio: 1.5),
 (-o-min-device-pixel-ratio: 3/2),
 (-webkit-min-device-pixel-ratio: 1.5),
