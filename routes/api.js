@@ -186,12 +186,12 @@ function fieldNames() {
 function tripToArray(t) {
   return [
     formatVehicle(t.vehicle),
-    t.start_address.name,
+    (t.start_address) ? t.start_address.name : '',
     t.start_location.lat,
     t.start_location.lon,
     t.start_location.accuracy_m,
     t.started_at,
-    t.end_address.name,
+    (t.end_address) ? t.end_address.name : '',
     t.end_location.lat,
     t.end_location.lon,
     t.end_location.accuracy_m,
