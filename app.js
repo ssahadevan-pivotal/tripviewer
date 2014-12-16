@@ -10,11 +10,7 @@ var session = require('express-session');
 nconf.env().argv();
 nconf.file('./config.json');
 
-nconf.set('AUTOMATIC_SCOPES', 'scope:trip scope:location scope:vehicle:profile scope:vehicle:events scope:behavior');
-
-
 var routes = require('./routes');
-var oauth = require('./routes/oauth');
 var api = require('./routes/api');
 
 var app = express();
@@ -37,19 +33,19 @@ if (app.get('env') !== 'development') {
 }
 
 app.get('/', routes.index);
-app.get('/trips', oauth.authenticate, routes.trips);
-app.get('/trips/:id', oauth.authenticate, routes.trip);
-app.get('/vehicles', oauth.authenticate, routes.vehicles);
+app.get('/trips', routes.authenticate, routes.trips);
+app.get('/trips/:id', routes.authenticate, routes.trip);
+app.get('/vehicles', routes.authenticate, routes.vehicles);
 
-app.get('/authorize/', oauth.authorize);
-app.get('/logout/', oauth.logout);
-app.get('/redirect/', oauth.redirect);
+app.get('/authorize/', routes.authorize);
+app.get('/logout/', routes.logout);
+app.get('/redirect/', routes.redirect);
 
-app.get('/api/trips/', oauth.authenticate, api.trips);
-app.get('/api/trips/:id', oauth.authenticate, api.trip);
-app.get('/api/vehicles/', oauth.authenticate, api.vehicles);
-app.get('/download/trips.json', oauth.authenticate, api.downloadTripsJSON);
-app.get('/download/trips.csv', oauth.authenticate, api.downloadTripsCSV);
+app.get('/api/trips/', routes.authenticate, api.trips);
+app.get('/api/trips/:id', routes.authenticate, api.trip);
+app.get('/api/vehicles/', routes.authenticate, api.vehicles);
+app.get('/download/trips.json', routes.authenticate, api.downloadTripsJSON);
+app.get('/download/trips.csv', routes.authenticate, api.downloadTripsCSV);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

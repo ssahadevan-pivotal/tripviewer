@@ -27,7 +27,7 @@ Install Gulp
 
 ### Configure your client id and client secret
 
-Copy the file `config-sample.json` to `config.json` and add your Automatic client id and client secret.  Alternatively, create environment variables named `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET`, `AUTOMATIC_AUTHORIZE_URL`, and `AUTOMATIC_AUTH_TOKEN_URL`.
+Copy the file `config-sample.json` to `config.json` and add your Automatic client id and client secret.  Alternatively, create environment variables named `AUTOMATIC_CLIENT_ID` and `AUTOMATIC_CLIENT_SECRET`.
 
     cp config-sample.json config.json
 
@@ -65,8 +65,6 @@ Configure the heroku app's environment variables:
 
     heroku config:add AUTOMATIC_CLIENT_ID="YOUR AUTOMATIC CLIENT ID"
     heroku config:add AUTOMATIC_CLIENT_SECRET="YOUR AUTOMATIC CLIENT SECRET"
-    heroku config:add AUTOMATIC_AUTHORIZE_URL=https://accounts.automatic.com/oauth/authorize/
-    heroku config:add AUTOMATIC_AUTH_TOKEN_URL=https://accounts.automatic.com/oauth/access_token/
 
 Deploy your app to heroku:
 
