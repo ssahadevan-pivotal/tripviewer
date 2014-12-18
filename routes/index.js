@@ -3,7 +3,7 @@ var nconf = require('nconf');
 var oauth2 = require('simple-oauth2')({
   clientID: nconf.get('AUTOMATIC_CLIENT_ID'),
   clientSecret: nconf.get('AUTOMATIC_CLIENT_SECRET'),
-  site: 'https://accounts.automatic.com/',
+  site: 'https://accounts.automatic.com',
   tokenPath: '/oauth/access_token'
 });
 
@@ -91,6 +91,9 @@ exports.force_https = function(req, res, next) {
 
 
 exports.check_dev_token = function(req, res, next) {
-  req.session.access_token = process.env.TOKEN;
+  if(process.env.TOKEN) {
+    req.session.access_token = process.env.TOKEN;
+    req.session.user_id = process.env.USER_ID;
+  }
   next();
 };
