@@ -47,33 +47,88 @@ app.get('/api/vehicles/', routes.authenticate, api.vehicles);
 app.get('/download/trips.json', routes.authenticate, api.downloadTripsJSON);
 app.get('/download/trips.csv', routes.authenticate, api.downloadTripsCSV);
 
-/// catch 404 and forwarding to error handler
+// error handlers
+
+// catch 404 errors
 app.use(function(req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  res.status(404);
+  if(req.xhr) {
+    res.send({
+      message: err.message,
+      error: {}
+    });
+  } else {
+    res.render('error', {
+      message: err.message,
+      description: 'Page not found',
+      error: {}
+    });
+  }
 });
 
-/// error handlers
+// catch 401 Unauthorized errors
+app.use(function(err, req, res, next) {
+  if(err.status !== 401) return next(err);
+  res.status(401);
+  if(req.xhr) {
+    res.send({
+      message: err.message,
+      error: err
+    });
+  } else {
+    res.render('error', {
+      message: err.message,
+      description: 'You need to log in to see this page.',
+      error: err
+    });
+  }
+});
 
-// development error handler
+
+// log all other errors
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  next(err);
+});
+
+// development 500 error handler
 // will print stacktrace
 if(app.get('env') === 'development') {
-	app.use(function(err, req, res, next) {
-		res.render('error', {
-			message: err.message,
-			error: err
-		});
-	});
+  app.use(function(err, req, res, next) {
+    res.status(500);
+    if(req.xhr) {
+      res.send({
+        message: err.message,
+        error: err
+      });
+    } else {
+      res.render('error', {
+        message: err.message,
+        error: err
+      });
+    }
+  });
 }
+
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
+  res.status(500);
+  if(req.xhr) {
+    res.send({
+      message: err.message,
+      error: {}
+    });
+  } else {
+    res.render('error', {
+      message: err.message,
+      description: 'Server error',
+      error: {}
+    });
+  }
 });
 
 module.exports = app;

@@ -12,7 +12,7 @@ var authorization_uri = oauth2.authCode.authorizeURL({
 });
 
 
-exports.index = function(req, res){
+exports.index = function(req, res, next){
   if(req.session && req.session.access_token) {
     res.render('summary', {loggedIn: true, menu: 'summary'});
   } else {
@@ -21,24 +21,18 @@ exports.index = function(req, res){
 };
 
 
-exports.authorize = function(req, res) {
+exports.authorize = function(req, res, next) {
   res.redirect(authorization_uri);
 };
 
 
-exports.redirect = function (req, res) {
+exports.redirect = function (req, res, next) {
   var code = req.query.code;
 
   oauth2.authCode.getToken({
     code: code
-  }, saveToken);
-
-  function saveToken(error, result) {
-    if (error) {
-      console.log('Access token error', error.message);
-      res.send('Access token error: ' +  error.message);
-      return;
-    }
+  }, function(e, result) {
+    if (e) return next(e);
 
     // Attach `token` to the user's session for later use
     var token = oauth2.accessToken.create(result);
@@ -47,7 +41,7 @@ exports.redirect = function (req, res) {
     req.session.user_id = token.token.user.id;
 
     res.redirect('/');
-  }
+  });
 };
 
 
@@ -60,23 +54,23 @@ exports.authenticate = function(req, res, next) {
 };
 
 
-exports.logout = function(req, res) {
+exports.logout = function(req, res, next) {
   req.session.destroy();
   res.redirect('/');
 };
 
 
-exports.trips = function(req, res){
+exports.trips = function(req, res, next){
   res.render('trips', {loggedIn: true, menu: 'trips'});
 };
 
 
-exports.trip = function(req, res){
+exports.trip = function(req, res, next){
   res.render('trip', {trip_id: req.params.id, loggedIn: true, menu: 'trips'});
 };
 
 
-exports.vehicles = function(req, res){
+exports.vehicles = function(req, res, next){
   res.render('vehicles', {loggedIn: true, menu: 'vehicles'});
 };
 
