@@ -8,18 +8,12 @@ Tripviewer is a node.js app that allows users to view and export trips taken usi
 
 A demo version of this application is available at [https://tripviewer.herokuapp.com](https://tripviewer.herokuapp.com).
 
-## Running
-
-
-### Prerequisites
-
-Install node.js
+### Install node and gulp
 
     brew install node
 
-Install Gulp
-
     npm install gulp -g
+
 
 ### Install required modules
 
