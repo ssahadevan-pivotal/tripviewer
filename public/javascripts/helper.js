@@ -159,30 +159,30 @@ function drawMap(trip) {
   }
 
   var aIcon = L.icon({
-    iconUrl: '/images/a.png',
+    iconUrl: '/images/marker-a.png',
     iconSize: [25, 41],
     iconAnchor: [12, 40],
     popupAnchor: [0,-41],
-    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.4/images/marker-shadow.png',
+    shadowUrl: '/images/marker-shadow.png',
     shadowSize: [41, 41],
     shadowAnchor: [12, 40]
   });
 
   var bIcon = L.icon({
-    iconUrl: '/images/b.png',
+    iconUrl: '/images/marker-b.png',
     iconSize: [25, 41],
     iconAnchor: [12, 40],
     popupAnchor: [0,-41],
-    shadowUrl: 'https://api.tiles.mapbox.com/mapbox.js/v1.6.4/images/marker-shadow.png',
+    shadowUrl: '/images/marker-shadow.png',
     shadowSize: [41, 41],
     shadowAnchor: [12, 40]
   });
 
   L.marker([trip.start_location.lat, trip.start_location.lon], {title: 'Start Location', icon: aIcon})
-    .bindPopup(trip.start_location.name + '<br>' + formatTime(trip.started_at, trip.start_timezone))
+    .bindPopup(trip.start_address + '<br>' + formatTime(trip.started_at, trip.start_timezone))
     .addTo(map);
   L.marker([trip.end_location.lat, trip.end_location.lon], {title: 'End Location', icon: bIcon})
-    .bindPopup(trip.end_location.name + '<br>' + formatTime(trip.ended_at, trip.end_timezone))
+    .bindPopup(trip.end_address + '<br>' + formatTime(trip.ended_at, trip.end_timezone))
     .addTo(map);
 }
 
