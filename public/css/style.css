@@ -376,7 +376,7 @@ h2.pageTitle {
 .trip.tile .durationOver70.someSpeeding::after {
   content: 'Min Over 70 MPH';
   color: #777;
-  width: 42px;
+  width: 44px;
 }
 .trip.tile .durationOver70.noSpeeding {
   background: #7fb75c;
