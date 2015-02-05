@@ -77,8 +77,26 @@ function formatMPG(kmpl) {
 }
 
 
-function formatAddress(address) {
-  return (address && address.name) ? address.name.replace(/\d+, USA/gi, '') : '';
+function cleanAddress(address) {
+  if(!address) {
+    address = {};
+  }
+
+  address.cleaned = (address && address.name) ? address.name.replace(/\d+, USA/gi, '') : '';
+  address.multiline = formatAddressMultiline(address.cleaned);
+
+  return address;
+}
+
+
+function formatAddressMultiline(cleaned) {
+  var lines = cleaned.split(', ');
+
+  if(lines.length > 2) {
+    var first = lines.shift()
+    cleaned = first + '<br>' + lines.join(', ');
+  }
+  return cleaned;
 }
 
 
@@ -86,14 +104,6 @@ function formatSpeeding(sec) {
   return Math.floor(sec / 60);
 }
 
-
-function formatTime(time, timezone) {
-  try {
-    return moment(time).tz(timezone).format('MMM D, YYYY<br> h:mm A');
-  } catch(e) {
-    return moment(time).format('MMM D, YYYY<br> h:mm A');
-  }
-}
 
 function formatDate(time, timezone) {
   try {
@@ -104,12 +114,20 @@ function formatDate(time, timezone) {
 }
 
 
-
-function formatTimeTable(time, timezone) {
+function formatTime(time, timezone) {
   try {
-    return moment(time).tz(timezone).format('YYYY-MM-DD h:mm A');
+    return moment(time).tz(timezone).format('h:mm A');
   } catch(e) {
-    return moment(time).format('YYYY-MM-DD h:mm A');
+    return moment(time).format('h:mm A');
+  }
+}
+
+
+function formatDayOfWeek(time, timezone) {
+  try {
+    return moment(time).tz(timezone).format('dddd');
+  } catch(e) {
+    return moment(time).format('dddd');
   }
 }
 
@@ -145,44 +163,42 @@ function drawMaps() {
 
 
 function drawMap(trip) {
-  var div_id = 'map' + trip.id;
-  var map = L.mapbox.map(div_id, 'examples.map-i86nkdio');
+  var styleId = 'examples.map-i86nkdio',
+      mapId = 'map' + trip.id,
+      map = L.mapbox.map(mapId, styleId),
+      start = [trip.start_location.lat, trip.start_location.lon],
+      end = [trip.end_location.lat, trip.end_location.lon],
+      lineStyle = {color: '#08b1d5', opacity: 0.9},
+      iconStyle = {
+        iconSize: [25, 41],
+        iconAnchor: [12, 40],
+        popupAnchor: [0,-41],
+        shadowUrl: '/images/marker-shadow.png',
+        shadowSize: [41, 41],
+        shadowAnchor: [12, 40]
+      },
+      aIcon = L.icon(_.extend(iconStyle, {iconUrl: '/images/marker-a.png'})),
+      bIcon = L.icon(_.extend(iconStyle, {iconUrl: '/images/marker-b.png'})),
+      startPopupContent = trip.start_address.multiline + '<br>' + trip.started_at_date + '<br>' + trip.started_at_time,
+      endPopupContent = trip.end_address.multiline + '<br>' + trip.ended_at_date + '<br>' + trip.ended_at_time,
+      line;
 
-  if (trip.path) {
-    var polyline = L.Polyline.fromEncoded(trip.path, {color: '#08b1d5', opacity: 0.9});
-
-    map.fitBounds(polyline.getBounds()).zoomOut();
-
-    polyline.addTo(map);
+  if(trip.path) {
+    line = L.polyline(polyline.decode(trip.path), lineStyle);
   } else {
-    map.fitBounds([[trip.start_location.lat, trip.start_location.lon], [trip.end_location.lat, trip.end_location.lon]]);
+    line = L.polyline([start, end], lineStyle);
   }
 
-  var aIcon = L.icon({
-    iconUrl: '/images/marker-a.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 40],
-    popupAnchor: [0,-41],
-    shadowUrl: '/images/marker-shadow.png',
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 40]
-  });
+  line.addTo(map)
 
-  var bIcon = L.icon({
-    iconUrl: '/images/marker-b.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 40],
-    popupAnchor: [0,-41],
-    shadowUrl: '/images/marker-shadow.png',
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 40]
-  });
+  map.fitBounds(line.getBounds(), {padding: [10, 10]});
 
-  L.marker([trip.start_location.lat, trip.start_location.lon], {title: 'Start Location', icon: aIcon})
-    .bindPopup(trip.start_address + '<br>' + formatTime(trip.started_at, trip.start_timezone))
+  L.marker(start, {title: 'Start Location', icon: aIcon})
+    .bindPopup(startPopupContent)
     .addTo(map);
-  L.marker([trip.end_location.lat, trip.end_location.lon], {title: 'End Location', icon: bIcon})
-    .bindPopup(trip.end_address + '<br>' + formatTime(trip.ended_at, trip.end_timezone))
+
+  L.marker(end, {title: 'End Location', icon: bIcon})
+    .bindPopup(endPopupContent)
     .addTo(map);
 }
 

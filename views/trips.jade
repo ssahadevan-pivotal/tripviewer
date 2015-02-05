@@ -13,14 +13,14 @@ block scripts
     .trip.tile
       a(href="/trips/{{id}}")
         .times
-          .endTime {{ended_at_formatted}}
+          .endTime {{ended_at_date}}<br>{{ended_at_time}}
           .duration {{duration}}
-          .startTime {{started_at_formatted}}
+          .startTime {{started_at_date}}<br>{{started_at_time}}
           .tripLine
             div
             div
         .tripSummary
-          .endAddress {{end_address}}
+          .endAddress {{end_address.cleaned}}
           .tripSummaryBox
             .distance {{distance}}
             .mpg {{average_mpg}}
@@ -28,7 +28,7 @@ block scripts
             .hardBrakes(class="{{hard_brakes_class}}") {{hard_brakes}}
             .hardAccels(class="{{hard_accels_class}}") {{hard_accels}}
             .durationOver70(class="{{speeding_class}}") {{speeding}}
-          .startAddress {{start_address}}
+          .startAddress {{start_address.cleaned}}
       .map(id="map{{id}}")
 
 
@@ -36,8 +36,9 @@ block scripts
     .table.table-header
       .select
         input#selectall(type="checkbox" checked="")
-      .startTime Start Time
-      .endTime End Time
+      .date Date
+      .startTime Start
+      .endTime End
       .duration Duration
       .startAddress Start Address
       .endAddress End Address
@@ -50,11 +51,12 @@ block scripts
     a.trip.table(href="/trips/{{id}}")
       .select
         input(type="checkbox" checked="")
-      .startTime {{started_at_formatted}}
-      .endTime {{ended_at_formatted}}
+      .date {{dayOfWeek}}<br>{{started_at_date}}
+      .startTime {{started_at_time}}
+      .endTime {{ended_at_time}}
       .duration {{duration}}
-      .startAddress {{start_address}}
-      .endAddress {{end_address}}
+      .startAddress {{start_address.multiline}}
+      .endAddress {{end_address.multiline}}
       .distance {{distance}} mi
       .mpg {{average_mpg}}
       .fuelCost ${{fuel_cost_usd}}

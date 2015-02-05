@@ -162,40 +162,38 @@ h2.pageTitle {
 .table .select input {
   margin-top: 0;
 }
+.table .date {
+  width: 89px;
+}
 .table .startTime,
 .table .endTime {
-  width: 90px;
+  width: 65px;
 }
 .table .duration {
-  width: 85px;
+  width: 70px;
 }
 .table .startAddress,
 .table .endAddress {
-  width: 209px;
+  width: 212px;
 }
-.table .distance {
-  width: 65px;
-  text-align: right;
-}
-.table .mpg {
-  width: 65px;
-  text-align: right;
-}
+.table .distance,
+.table .mpg,
 .table .fuelCost {
-  width: 65px;
+  width: 55px;
   text-align: right;
 }
 .trip.tile {
   overflow: hidden;
-  background: #e5e5e5;
+  background: #F4F4F4;
   margin: 25px 0;
 }
 .trip.tile .times {
   width: 100px;
   float: left;
   font-size: 12px;
-  padding: 10px;
+  padding: 10px 15px 10px 10px;
   position: relative;
+  text-align: right;
 }
 .trip.tile .duration {
   margin-top: 41px;
@@ -479,11 +477,16 @@ h2.pageTitle {
   float: right;
   margin: 0;
   position: relative;
-  padding: 15px;
+  padding: 15px 15px 15px 0;
 }
 #trip .trip.tile .tripSummary {
   width: 295px;
   margin-left: 10px;
+}
+#trip .trip.tile .endAddress,
+#trip .trip.tile .startAddress {
+  height: 50px;
+  overflow: hidden;
 }
 #trip .trip.tile .distance,
 #trip .trip.tile .mpg,
@@ -503,13 +506,17 @@ h2.pageTitle {
 }
 #trip .trip.tile .duration {
   font-size: 16px;
-  margin-top: 76px;
+  margin-top: 86px;
+}
+#trip .trip.tile .endTime {
+  margin-top: 17px;
 }
 #trip .trip.tile .startTime {
-  margin-top: 76px;
+  margin-top: 108px;
 }
 #trip .trip.tile .tripLine {
-  height: 227px;
+  height: 250px;
+  top: 27px;
 }
 .axis path,
 .axis line {

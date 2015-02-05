@@ -91,12 +91,17 @@ function formatTrip(trip) {
     trip.vehicle = {};
   }
 
+  trip.start_address = cleanAddress(trip.start_address);
+  trip.end_address = cleanAddress(trip.end_address);
+
   return _.extend(trip, {
-    title: 'Drive to ' + formatAddress(trip.end_address) + ' on ' + formatDate(trip.started_at),
-    ended_at_formatted: formatTime(trip.ended_at),
+    title: 'Drive to ' + trip.end_address.cleaned + ' on ' + formatDate(trip.started_at, trip.start_timezone),
+    dayOfWeek: formatDayOfWeek(trip.started_at, trip.start_timezone),
+    started_at_time: formatTime(trip.started_at, trip.start_timezone),
+    started_at_date: formatDate(trip.started_at, trip.start_timezone),
+    ended_at_time: formatTime(trip.ended_at, trip.end_timezone),
+    ended_at_date: formatDate(trip.ended_at, trip.end_timezone),
     duration: formatDuration(trip.duration_s),
-    started_at_formatted: formatTime(trip.started_at),
-    end_address: formatAddress(trip.end_address),
     distance: formatDistance(m_to_mi(trip.distance_m)),
     average_mpg: formatMPG(trip.average_kmpl),
     fuel_cost_usd: formatFuelCost(trip.fuel_cost_usd),
@@ -106,7 +111,6 @@ function formatTrip(trip) {
     hard_accels: trip.hard_accels || '<i class="glyphicon glyphicon-ok"></i>',
     speeding_class: (formatSpeeding(trip.duration_over_70_s) > 0 ? 'someSpeeding' : 'noSpeeding'),
     speeding: Math.ceil(trip.duration_over_70_s/60) || '<i class="glyphicon glyphicon-ok"></i>',
-    start_address: formatAddress(trip.start_address),
     fuel_volume_usgal: l_to_usgal(trip.fuel_volume_l)
   });
 }

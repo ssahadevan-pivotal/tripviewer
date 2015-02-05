@@ -14,14 +14,14 @@ block scripts
     .map(id="map{{id}}")
     .trip.tile
       .times
-        .endTime {{ended_at_formatted}}
+        .endTime {{ended_at_time}}
         .duration {{duration}}
-        .startTime {{started_at_formatted}}
+        .startTime {{started_at_time}}
         .tripLine
           div
           div
       .tripSummary
-        .endAddress {{end_address}}
+        .endAddress {{end_address.cleaned}}
         .tripSummaryBox
           .distance {{distance}}
           .hardBrakes(class="{{hard_brakes_class}}") {{hard_brakes}}
@@ -29,6 +29,6 @@ block scripts
           .hardAccels(class="{{hard_accels_class}}") {{hard_accels}}
           .fuelCost {{fuel_cost_usd}}
           .durationOver70(class="{{speeding_class}}") {{speeding}}
-        .startAddress {{start_address}}
+        .startAddress {{start_address.cleaned}}
 
   script(src="/javascripts/trip.js")
