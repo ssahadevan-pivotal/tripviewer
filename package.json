@@ -37,10 +37,9 @@
     "morgan": "~1.5.1",
     "nconf": "~0.7.1",
     "passport": "^0.2.1",
-    "passport-automatic": "git://github.com/Automatic/passport-automatic",
+    "passport-automatic": "~1.2.0",
     "request": "~2.53.0",
     "serve-favicon": "~2.2.0",
-    "simple-oauth2": "~0.2.x",
     "underscore": "~1.7.0"
   },
   "engines": {
