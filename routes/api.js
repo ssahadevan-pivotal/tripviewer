@@ -10,7 +10,7 @@ exports.trips = function(req, res, next) {
   request.get({
     uri: apiUrl + '/trip/',
     qs: { page: req.query.page },
-    headers: {Authorization: 'bearer ' + req.session.access_token},
+    headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true
   }, function(e, r, body) {
     if(e) return next(e);
@@ -22,7 +22,7 @@ exports.trips = function(req, res, next) {
 exports.trip = function(req, res, next) {
   request.get({
     uri: apiUrl + '/trip/' + req.params.id,
-    headers: {Authorization: 'bearer ' + req.session.access_token},
+    headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true
   }, function(e, r, body) {
     if(e) return next(e);
@@ -72,7 +72,7 @@ function downloadAllTrips(req, cb) {
   //get first page of trips
   request.get({
     uri: uri,
-    headers: {Authorization: 'bearer ' + req.session.access_token},
+    headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true,
     qs: { limit: 25 }
   }, function(e, r, body) {
@@ -90,7 +90,7 @@ function downloadAllTrips(req, cb) {
       async.concat(pages, function(page, cb) {
         request.get({
           uri: uri,
-          headers: {Authorization: 'bearer ' + req.session.access_token},
+          headers: {Authorization: 'bearer ' + req.user.accessToken},
           json: true,
           qs: {
             limit: 25,
@@ -127,7 +127,7 @@ function downloadAllTrips(req, cb) {
 function downloadVehicles (req, cb) {
   request.get({
     uri: apiUrl + '/vehicle/',
-    headers: {Authorization: 'bearer ' + req.session.access_token},
+    headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true
   }, function(e, r, body) {
     cb(e, body.results);

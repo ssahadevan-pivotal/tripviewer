@@ -6,6 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var nconf = require('nconf');
 var session = require('express-session');
+var passport = require('passport');
+var AutomaticStrategy = require('passport-automatic').Strategy;
 
 nconf.env().argv();
 nconf.file('./config.json');
@@ -14,6 +16,31 @@ var routes = require('./routes');
 var api = require('./routes/api');
 
 var app = express();
+
+
+// Use the AutomaticStrategy within Passport
+passport.use(new AutomaticStrategy({
+    clientID: nconf.get('AUTOMATIC_CLIENT_ID'),
+    clientSecret: nconf.get('AUTOMATIC_CLIENT_SECRET'),
+		scope: ['scope:trip', 'scope:location', 'scope:vehicle:profile', 'scope:vehicle:events', 'scope:behavior']
+  },
+  function(accessToken, refreshToken, profile, done) {
+		profile.accessToken = accessToken;
+
+    return done(null, profile);
+  }
+));
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +51,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: nconf.get('SESSION_SECRET'), resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.get('env') !== 'development') {
@@ -33,19 +62,19 @@ if (app.get('env') !== 'development') {
 }
 
 app.get('/', routes.index);
-app.get('/trips', routes.authenticate, routes.trips);
-app.get('/trips/:id', routes.authenticate, routes.trip);
-app.get('/vehicles', routes.authenticate, routes.vehicles);
+app.get('/trips', routes.ensureAuthenticated, routes.trips);
+app.get('/trips/:id', routes.ensureAuthenticated, routes.trip);
+app.get('/vehicles', routes.ensureAuthenticated, routes.vehicles);
 
-app.get('/authorize/', routes.authorize);
+app.get('/authorize/', passport.authenticate('automatic'));
 app.get('/logout/', routes.logout);
-app.get('/redirect/', routes.redirect);
+app.get('/redirect/', passport.authenticate('automatic', {failureRedirect: '/'}), routes.redirect);
 
-app.get('/api/trips/', routes.authenticate, api.trips);
-app.get('/api/trips/:id', routes.authenticate, api.trip);
-app.get('/api/vehicles/', routes.authenticate, api.vehicles);
-app.get('/download/trips.json', routes.authenticate, api.downloadTripsJSON);
-app.get('/download/trips.csv', routes.authenticate, api.downloadTripsCSV);
+app.get('/api/trips/', routes.ensureAuthenticated, api.trips);
+app.get('/api/trips/:id', routes.ensureAuthenticated, api.trip);
+app.get('/api/vehicles/', routes.ensureAuthenticated, api.vehicles);
+app.get('/download/trips.json', routes.ensureAuthenticated, api.downloadTripsJSON);
+app.get('/download/trips.csv', routes.ensureAuthenticated, api.downloadTripsCSV);
 
 // error handlers
 
