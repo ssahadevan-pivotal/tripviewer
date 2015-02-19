@@ -63,7 +63,8 @@ exports.force_https = function(req, res, next) {
 
 exports.check_dev_token = function(req, res, next) {
   if(process.env.TOKEN) {
-    req.profile.accessToken = process.env.TOKEN;
+    req.login({accessToken: process.env.TOKEN}, next);
+  } else {
+    next();
   }
-  next();
 };
