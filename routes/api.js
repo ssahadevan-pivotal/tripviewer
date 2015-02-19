@@ -199,7 +199,11 @@ function tripToArray(t) {
 
 
 function formatVehicle(v) {
-  return [(v.year || ''), (v.make || ''), (v.model || '')].join(' ');
+  if(!v) {
+    return '';
+  } else {
+    return [(v.year || ''), (v.make || ''), (v.model || '')].join(' ');
+  }
 };
 
 
