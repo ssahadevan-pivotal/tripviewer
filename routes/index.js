@@ -2,11 +2,12 @@ var nconf = require('nconf');
 
 
 exports.index = function(req, res, next){
-  if(req.isAuthenticated()) {
-    res.render('summary', {loggedIn: true, menu: 'summary'});
-  } else {
-    res.render('index');
-  }
+  res.render('index', {loggedIn: true, menu: 'summary'});
+};
+
+
+exports.login = function(req, res, next) {
+  res.render('login');
 };
 
 
@@ -16,10 +17,17 @@ exports.redirect = function (req, res, next) {
 
 
 exports.ensureAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) {
+  if(req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/');
+
+  if(req.xhr) {
+    var error = new Error('Not logged in');
+    error.setStatus(401);
+    return next(error);
+  } else {
+    res.redirect('/login');
+  }
 };
 
 

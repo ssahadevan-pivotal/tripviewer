@@ -61,7 +61,8 @@ if (app.get('env') !== 'development') {
 	app.all('*', routes.check_dev_token);
 }
 
-app.get('/', routes.index);
+app.get('/', routes.ensureAuthenticated, routes.index);
+app.get('/login', routes.login);
 app.get('/trips', routes.ensureAuthenticated, routes.trips);
 app.get('/trips/:id', routes.ensureAuthenticated, routes.trip);
 app.get('/vehicles', routes.ensureAuthenticated, routes.vehicles);
