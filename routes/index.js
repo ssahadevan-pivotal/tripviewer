@@ -1,3 +1,6 @@
+var nconf = require('nconf');
+
+
 exports.index = function(req, res, next){
   if(req.isAuthenticated()) {
     res.render('summary', {loggedIn: true, menu: 'summary'});
@@ -27,12 +30,12 @@ exports.logout = function(req, res, next) {
 
 
 exports.trips = function(req, res, next){
-  res.render('trips', {loggedIn: true, menu: 'trips'});
+  res.render('trips', {loggedIn: true, menu: 'trips', mapboxAccessToken: nconf.get('MAPBOX_ACCESS_TOKEN')});
 };
 
 
 exports.trip = function(req, res, next){
-  res.render('trip', {trip_id: req.params.id, loggedIn: true, menu: 'trips'});
+  res.render('trip', {trip_id: req.params.id, loggedIn: true, menu: 'trips', mapboxAccessToken: nconf.get('MAPBOX_ACCESS_TOKEN')});
 };
 
 

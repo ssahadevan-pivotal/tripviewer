@@ -21,9 +21,11 @@ A demo version of this application is available at [https://tripviewer.herokuapp
 
 ### Configure your client id and client secret
 
-Copy the file `config-sample.json` to `config.json` and add your Automatic client id and client secret.  Alternatively, create environment variables named `AUTOMATIC_CLIENT_ID` and `AUTOMATIC_CLIENT_SECRET`.
+Copy the file `config-sample.json` to `config.json` and add your Automatic client id and client secret.  Alternatively, create environment variables named `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET` and `MAPBOX_ACCESS_TOKEN`.
 
     cp config-sample.json config.json
+
+Get a [mapbox access token](https://www.mapbox.com/signup/) and add it to the `config.json` file.
 
 ### Run the app
 

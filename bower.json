@@ -16,7 +16,7 @@
     "bootstrap": "~3.3.1",
     "d3": "~3.5.2",
     "jquery": "~2.1.1",
-    "mapbox.js": "~1.6.4",
+    "mapbox.js": "~2.1.5",
     "moment": "~2.9.0",
     "moment-timezone": "~0.3.0",
     "polyline": "https://github.com/mapbox/polyline.git#365ed8b1c4507404b5e0d440ebe27417e48edeb0",

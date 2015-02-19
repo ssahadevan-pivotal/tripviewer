@@ -163,7 +163,10 @@ function drawMaps() {
 
 
 function drawMap(trip) {
-  var styleId = 'examples.map-i86nkdio',
+  // Setup mapbox
+  L.mapbox.accessToken = mapboxAccessToken;
+
+  var styleId = 'automatic.h5kpm228',
       mapId = 'map' + trip.id,
       map = L.mapbox.map(mapId, styleId),
       start = [trip.start_location.lat, trip.start_location.lon],
