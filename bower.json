@@ -1,6 +1,6 @@
 {
   "name": "TripViewer",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "homepage": "https://github.com/automatic/tripviewer",
   "authors": [
     "Brendan Nee <brendan@automatic.com>"
@@ -20,6 +20,6 @@
     "moment": "~2.9.0",
     "moment-timezone": "~0.3.0",
     "polyline": "https://github.com/mapbox/polyline.git#365ed8b1c4507404b5e0d440ebe27417e48edeb0",
-    "underscore": "~ 1.7.0"
+    "underscore": "~1.8.2"
   }
 }
