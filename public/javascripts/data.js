@@ -2,7 +2,7 @@ function fetchTrips(cb) {
   var ts = sessionStorage.getItem('ts');
   if(ts < Date.now() - (60*60*1000)) {
     showLoading();
-    $.getJSON('/download/trips.json')
+    $.getJSON('/api/trips/')
       .done(function(results) {
         trips = results.map(formatTrip);
         cacheTrips(trips);
