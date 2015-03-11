@@ -26,7 +26,6 @@ passport.use(new AutomaticStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
 		profile.accessToken = accessToken;
-
     return done(null, profile);
   }
 ));
@@ -50,7 +49,12 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: nconf.get('SESSION_SECRET'), resave: true, saveUninitialized: true }));
+app.use(session({
+  secret: nconf.get('SESSION_SECRET'),
+  resave: true,
+  saveUninitialized: true,
+  cookie: {maxAge: 31536000000}
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
