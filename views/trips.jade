@@ -1,12 +1,14 @@
 extends layout
 
 block content
-  .btn-group.display-type
-    a.btn.btn-default.active(href="#" data-type="tile") Tiles
-    a.btn.btn-default(href="#" data-type="table") Table
-  #refresh.btn.btn-default <i class="glyphicon glyphicon-refresh"></i> Refresh
-  #trips
-  .loading Loading...
+  .wrapper.content
+    #alert.alert
+    .btn-group.display-type
+      a.btn.btn-default.active(href="#" data-type="tile") Tiles
+      a.btn.btn-default(href="#" data-type="table") Table
+    #refresh.btn.btn-default <i class="glyphicon glyphicon-refresh"></i> Refresh
+    #trips
+    .loading Loading...
 
 block scripts
   script.

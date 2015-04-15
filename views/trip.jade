@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  a.back.btn.btn-default(href="/trips") <span class="glyphicon glyphicon-chevron-left"></span> Back
-  #trip
-  .loading Loading...
+  .wrapper.content
+    #alert.alert
+    a.back.btn.btn-default(href="/trips") <span class="glyphicon glyphicon-chevron-left"></span> Back
+    #trip
+    .loading Loading...
 
 block scripts
   script.

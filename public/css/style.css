@@ -1,5 +1,5 @@
 body {
-  font-family: Avenir;
+  font-family: 'avenir next', avenir, helvetica, arial, sans-serif;
   background: #e1e1e1 url(../images/climpek.png) 0 0;
 }
 .wrapper {
@@ -83,27 +83,86 @@ h2.pageTitle {
   display: none;
   margin-top: 20px;
 }
+.signin-panel {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  display: block;
+  margin: 70px auto 0;
+  max-width: 600px;
+}
+.signin-panel .border-top {
+  border-top: 1px solid #ebeae6;
+  padding: 10px 20px;
+}
+.signin-panel .border-both {
+  border-bottom: 1px solid #ebeae6;
+  border-top: 1px solid #ebeae6;
+  padding: 10px 20px;
+}
+.signin-title {
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 32px;
+  margin-top: 10px;
+  text-align: center;
+}
+.signin-graphics {
+  height: 46px;
+  margin: 10px auto 30px;
+  position: relative;
+  width: 232px;
+}
+.signin-graphics .logo-badge-automatic {
+  background: url("../images/logo_badge_automatic.png") 0 0 no-repeat;
+  height: 39px;
+  left: 0;
+  position: absolute;
+  top: 3px;
+  width: 36px;
+}
+.signin-graphics .icon-integrations-arrows {
+  background: url("../images/icon_integrations_arrows.png") 0 0 no-repeat;
+  height: 46px;
+  left: 59px;
+  position: absolute;
+  top: 0;
+  width: 113px;
+}
+.signin-graphics .logo-badge-tripviewer {
+  font-size: 49px;
+  height: 39px;
+  left: 195px;
+  line-height: 49px;
+  margin: -5px 0 0 5px;
+  position: absolute;
+  top: 3px;
+  width: 39px;
+}
+.signin-instructions {
+  display: inline-block;
+  font-size: 18px;
+}
+.signin-text {
+  text-align: center;
+}
+.signin-btn {
+  background: url("../images/auth_automatic-connect-32.svg") 0 0 no-repeat;
+  display: block;
+  height: 32px;
+  margin: 10px auto 0;
+  text-indent: -9999px;
+  width: 205px;
+}
+.signin-btn:hover,
+.signin-btn:active {
+  background-image: url("../images/auth_automatic-connect-hover-32.svg");
+}
+.signin-learnmore {
+  margin: 50px 0 10px;
+  text-align: center;
+}
 .description {
   font-size: 16px;
   line-height: 24px;
-}
-.sign-in {
-  margin-top: 30px;
-  clear: both;
-}
-.sign-in .btn {
-  display: block;
-  margin: 0 auto;
-  width: 250px;
-  margin-top: 60px;
-}
-.sign-in .btn .automatic-logo {
-  height: 24px;
-  width: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 5px;
-  background: url(/images/automatic-logo.png) 0 0 no-repeat;
 }
 .display-type {
   margin-top: 20px;
@@ -599,6 +658,33 @@ text.key {
 #vehicles .vehicle .vehicleStats span.badge {
   float: right;
 }
+@media (min-width: 580px) {
+  .signin-body {
+    overflow: hidden;
+  }
+
+  .signin-text {
+    line-height: 40px;
+  }
+
+  .signin-btn {
+    float: right;
+    margin-top: 4px;
+  }
+
+  .signin-panel {
+    margin-bottom: 100px;
+    margin-top: 100px;
+  }
+
+  .signin-panel .border-top {
+    padding: 10px 40px;
+  }
+
+  .signin-panel .border-both {
+    padding: 10px 40px;
+  }
+}
 @media (min--moz-device-pixel-ratio: 1.5),
 (-o-min-device-pixel-ratio: 3/2),
 (-webkit-min-device-pixel-ratio: 1.5),
@@ -612,9 +698,5 @@ text.key {
   .mainHeader .logo {
     background-image: url(../images/automatic-logo-header@2x.png);
     background-size: 119px 33px;
-  }
-  .sign-in .btn .automatic-logo {
-    background-image: url(../images/automatic-logo@2x.png);
-    background-size: 22px 24px;
   }
 }
