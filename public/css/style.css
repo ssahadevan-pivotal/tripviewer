@@ -138,7 +138,7 @@ h2.pageTitle {
   width: 39px;
 }
 .signin-instructions {
-  display: inline-block;
+  display: block;
   font-size: 18px;
 }
 .signin-text {
@@ -662,25 +662,23 @@ text.key {
   .signin-body {
     overflow: hidden;
   }
-
+  .signin-instructions {
+    display: inline-block;
+  }
   .signin-text {
     line-height: 40px;
   }
-
   .signin-btn {
     float: right;
     margin-top: 4px;
   }
-
   .signin-panel {
     margin-bottom: 100px;
     margin-top: 100px;
   }
-
   .signin-panel .border-top {
     padding: 10px 40px;
   }
-
   .signin-panel .border-both {
     padding: 10px 40px;
   }
