@@ -145,7 +145,8 @@ h2.pageTitle {
   text-align: center;
 }
 .signin-btn {
-  background: url("../images/auth_automatic-connect-32.svg") 0 0 no-repeat;
+  background: url("../images/auth_automatic-connect-28-sprite.svg") 0 0 no-repeat;
+  background-size: 205px 64px;
   display: block;
   height: 32px;
   margin: 10px auto 0;
@@ -154,7 +155,8 @@ h2.pageTitle {
 }
 .signin-btn:hover,
 .signin-btn:active {
-  background-image: url("../images/auth_automatic-connect-hover-32.svg");
+  background-image: url("../images/auth_automatic-connect-28-sprite.svg");
+  background-position: 0 -32px;
 }
 .signin-learnmore {
   margin: 50px 0 10px;
