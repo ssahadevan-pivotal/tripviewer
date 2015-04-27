@@ -13,7 +13,7 @@ exports.sortByDate = function(trips) {
   return _.sortBy(trips, function(trip) {
     return -moment(trip.started_at).valueOf();
   });
-}
+};
 
 
 exports.mergeTripsAndVehicles = function(trips, vehicles) {
@@ -49,7 +49,8 @@ exports.fieldNames = function() {
     'Duration Over 70 mph (secs)',
     'Fuel Cost (USD)',
     'Fuel Volume (l)',
-    'Average MPG'
+    'Average MPG',
+    'Tags'
   ];
 };
 
@@ -77,7 +78,8 @@ exports.tripToArray = function(t) {
     t.duration_over_70_s,
     formatFuelCost(t.fuel_cost_usd),
     t.fuel_volume_l,
-    t.average_mpg
+    t.average_mpg,
+    t.tags.join(',')
   ];
 };
 
@@ -88,15 +90,15 @@ function formatVehicle(v) {
   } else {
     return [(v.year || ''), (v.make || ''), (v.model || '')].join(' ');
   }
-};
+}
 
 
 function m_to_mi(distance) {
   //convert from m to mi
   return (distance / 1609.34).toFixed(2);
-};
+}
 
 
 function formatFuelCost(fuelCost) {
   return '$' + fuelCost.toFixed(2);
-};
+}
