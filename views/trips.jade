@@ -55,7 +55,7 @@ block scripts
 
 
   script(type='text/template' id='tripTable')
-    a.trip.table(href="/trips/{{id}}")
+    a.trip.table(href="/trips/{{id}}" data-trip_id="{{id}}")
       .select
         input(type="checkbox" checked="")
       .date {{dayOfWeek}}<br>{{started_at_date}}

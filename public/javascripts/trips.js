@@ -50,7 +50,8 @@ $('#trips').on('change', '.trip.table input[type="checkbox"]', function(){
 
 
 $('#csv, #json').click(function() {
-  var href = '/download/trips.' + this.id;
+  var exportType = this.id
+  var href = '/download/trips.' + exportType;
   if(viewType == 'table') {
     var trip_ids = $('.trip.table input[type="checkbox"]:checked').map(function() {
       return $(this).parents('.trip').data('trip_id');

@@ -81,6 +81,7 @@ app.get('/api/trips/:id', routes.ensureAuthenticated, api.trip);
 app.get('/api/vehicles/', routes.ensureAuthenticated, api.vehicles);
 
 app.get('/download/trips.csv', routes.ensureAuthenticated, api.downloadTripsCSV);
+app.get('/download/trips.json', routes.ensureAuthenticated, api.trips);
 
 // error handlers
 require('./libs/errors')(app);
