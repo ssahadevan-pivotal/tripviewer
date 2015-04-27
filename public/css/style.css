@@ -211,9 +211,8 @@ h2.pageTitle {
   padding: 8px 4px;
   vertical-align: middle;
   box-sizing: border-box;
-  height: 50px;
 }
-.trip.table:nth-child(odd)>div {
+.trip.table:nth-child(odd) {
   background-color: #f9f9f9;
 }
 .table .select {
@@ -234,13 +233,19 @@ h2.pageTitle {
 }
 .table .startAddress,
 .table .endAddress {
-  width: 212px;
+  width: 208px;
 }
 .table .distance,
 .table .mpg,
 .table .fuelCost {
-  width: 55px;
+  width: 45px;
   text-align: right;
+}
+.table .business {
+  width: 37px;
+}
+.table .business .business-tag {
+  width: 24px;
 }
 .trip.tile {
   overflow: hidden;
@@ -587,6 +592,24 @@ h2.pageTitle {
   height: 250px;
   top: 27px;
 }
+
+/* Business Tagging */
+
+.business-tag {
+  clear: both;
+  border: 1px solid #D8D8D8;
+  border-radius: 5px;
+  padding: 4px 10px;
+  float: right;
+  font-weight: normal;
+}
+
+.business-tag input {
+  margin-right: 5px;
+}
+
+
+/* Chart Styles */
 .axis path,
 .axis line {
   fill: none;

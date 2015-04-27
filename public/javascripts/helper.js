@@ -9,8 +9,7 @@ function hideLoading() {
 
 
 function showAlert(msg, type) {
-  var type = type || 'info';
-  $('#alert').html(msg).removeClass().addClass('alert alert-' + type).fadeIn();
+  $('#alert').html(msg).removeClass().addClass('alert alert-' + (type || 'info')).fadeIn();
 }
 
 
@@ -150,7 +149,7 @@ function formatDayOfWeek(time, timezone) {
 
 
 function formatTripCount(trip_count) {
-  if(trip_count == 1) {
+  if(trip_count === 1) {
     return trip_count + ' Trip';
   } else {
     return (trip_count || 0) + ' Trips';
@@ -209,7 +208,7 @@ function drawMap(trip) {
     line = L.polyline([start, end], lineStyle);
   }
 
-  line.addTo(map)
+  line.addTo(map);
 
   map.fitBounds(line.getBounds(), {padding: [10, 10]});
 

@@ -32,9 +32,55 @@ function fetchTrip(trip_id, cb) {
         }
       })
       .fail(function(jqhxr, textStatus, error) {
-        showAlert('Unable to fetch trip (' +jqhxr.status + ' ' + error + ')', 'danger');
+        showAlert('Unable to fetch trip (' + jqhxr.status + ' ' + error + ')', 'danger');
       });
   }
+}
+
+
+function tagTrip(trip_id, tag) {
+  $.post(
+    '/api/trips/' + trip_id + '/tag',
+    {tag: tag}
+  )
+  .done(function(data) {
+    if(data) {
+      var cached = getCachedTrips(trip_id);
+      if(cached.tags) {
+        console.log(cached.tags);
+        cached.tags = _.union([tag], cached.tags);
+        console.log(cached.tags);
+        cached.business_tag = 'checked';
+        cacheTrip(cached);
+      }
+      hideAlert();
+    } else {
+      showAlert('Unable to tag trip', 'danger');
+    }
+  })
+  .fail(function(jqhxr, textStatus, error) {
+    showAlert('Unable to tag trip (' + jqhxr.status + ' ' + error + ')', 'danger');
+  });
+}
+
+
+function untagTrip(trip_id, tag) {
+  $.ajax({
+    url: '/api/trips/' + trip_id + '/tag/' + tag,
+    type: 'DELETE'
+  })
+  .done(function(data) {
+    var cached = getCachedTrips(trip_id);
+    if(cached) {
+      cached.tags = _.without(cached.tags, tag);
+      cached.business_tag = '';
+      cacheTrip(cached);
+    }
+    hideAlert();
+  })
+  .fail(function(jqhxr, textStatus, error) {
+    showAlert('Unable to untag trip (' + jqhxr.status + ' ' + error + ')', 'danger');
+  });
 }
 
 
@@ -64,8 +110,13 @@ function cacheTrips(trips) {
   sessionStorage.setItem('ts', Date.now());
 
   trips.forEach(function(trip) {
-    sessionStorage.setItem(trip.id, JSON.stringify(trip));
+    cacheTrip(trip);
   });
+}
+
+
+function cacheTrip(trip) {
+  sessionStorage.setItem(trip.id, JSON.stringify(trip));
 }
 
 
@@ -74,10 +125,16 @@ function cacheVehicles(vehicles) {
 }
 
 
-function getCachedTrips() {
-  var order = JSON.parse(sessionStorage.getItem('order') || '[]');
+function getCachedTrips(trip_id) {
+  if(trip_id) {
+    // get specific cached trip
+    return JSON.parse(sessionStorage.getItem(trip_id) || '{}');
+  } else {
+    // get all cached trips
+    var order = JSON.parse(sessionStorage.getItem('order') || '[]');
+    return order.map(function(trip_id) { return JSON.parse(sessionStorage.getItem(trip_id) || {}); });
+  }
 
-  return order.map(function(trip_id) { return JSON.parse(sessionStorage.getItem(trip_id) || {}); });
 }
 
 
@@ -111,6 +168,7 @@ function formatTrip(trip) {
     hard_accels: trip.hard_accels || '<i class="glyphicon glyphicon-ok"></i>',
     speeding_class: getSpeedingClass(trip.duration_over_70_s),
     speeding: formatSpeeding(trip.duration_over_70_s),
-    fuel_volume_usgal: l_to_usgal(trip.fuel_volume_l)
+    fuel_volume_usgal: l_to_usgal(trip.fuel_volume_l),
+    business_tag: _.contains(trip.tags, 'business') ? 'checked' : ''
   });
 }

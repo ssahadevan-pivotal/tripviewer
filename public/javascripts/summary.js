@@ -51,31 +51,31 @@ function processTrips(trips) {
 function prepData(type) {
   var graphData = {},
       formatter;
-  if (type == 'distance') {
+  if (type === 'distance') {
     formatter = function(d) {
       return parseFloat(formatDistance(m_to_mi(d.values.distance_m)));
     };
     graphData.yAxisLabel = 'Distance (mi)';
     graphData.unitFomatter = function(d) { return d.value + ' miles'; };
-  } else if (type == 'duration_s') {
+  } else if (type === 'duration_s') {
     formatter = function(d) {
       return formatDurationHours(d.values.duration_s);
     };
     graphData.yAxisLabel = 'Duration (hours)';
     graphData.unitFomatter = function(d) { return d.value + ' hours'; };
-  } else if (type == 'trip_count') {
+  } else if (type === 'trip_count') {
     formatter = function(d) {
       return d.values.trip_count;
     };
     graphData.yAxisLabel = 'Trip Count';
     graphData.unitFomatter = function(d) { return d.value + ' trips'; };
-  } else if (type == 'fuel_cost_usd') {
+  } else if (type === 'fuel_cost_usd') {
     formatter = function(d) {
       return d.values.fuel_cost_usd;
     };
     graphData.yAxisLabel = 'Fuel Cost (USD)';
     graphData.unitFomatter = function(d) { return '$' + formatFuelCost(d.value); };
-  } else if (type == 'fuel_volume_usgal') {
+  } else if (type === 'fuel_volume_usgal') {
     formatter = function(d) {
       return d.values.fuel_volume_usgal;
     };
@@ -87,7 +87,7 @@ function prepData(type) {
     return {
       value: formatter(d),
       key: moment(d.key, 'YYYY w').valueOf()
-    }
+    };
   });
 
   return graphData;

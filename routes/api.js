@@ -33,6 +33,34 @@ exports.trip = function(req, res, next) {
 };
 
 
+exports.tagTrip = function(req, res, next) {
+  if(!req.body.tag) {
+    return next(new Error('No tag provided'));
+  }
+  request.post({
+    uri: nconf.get('API_URL') + '/trip/' + req.params.id + '/tag/',
+    headers: {Authorization: 'bearer ' + req.user.accessToken},
+    form: {
+      tag: req.body.tag
+    }
+  }, function(e, r, body) {
+    if(e) return next(e);
+    res.send(body);
+  });
+};
+
+
+exports.untagTrip = function(req, res, next) {
+  request.del({
+    uri: nconf.get('API_URL') + '/trip/' + req.params.id + '/tag/' + req.params.tag + '/',
+    headers: {Authorization: 'bearer ' + req.user.accessToken}
+  }, function(e, r, body) {
+    if(e) return next(e);
+    res.send();
+  });
+};
+
+
 exports.vehicles = function(req, res, next) {
   downloadVehicles(req, function(e, vehicles) {
     if(e) return next(e);

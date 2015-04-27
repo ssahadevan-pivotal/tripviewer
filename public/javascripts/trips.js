@@ -3,7 +3,6 @@ _.templateSettings = {
 };
 
 var trips,
-    viewType = 'tile',
     tripTemplate = _.template($('#tripTile').html()),
     tripTableTemplate = _.template($('#tripTable').html()),
     tripTableHeader = _.template($('#tripTableHeader').html());
@@ -24,8 +23,7 @@ $('#refresh').click(function() {
 
 
 $('.display-type a').click(function() {
-  viewType = $(this).data('type');
-  $(this).addClass('active').siblings().removeClass('active')
+  sessionStorage.setItem('viewType', $(this).data('type'));
   renderTrips();
   return false;
 });
@@ -40,8 +38,8 @@ $('#trips').on('change', '#selectall', function() {
 });
 
 
-$('#trips').on('change', '.trip.table input[type="checkbox"]', function(){
-  if($('.trip.table input[type="checkbox"]').length == $('.trip.table input[type="checkbox"]:checked').length) {
+$('#trips').on('change', '.trip.table .select-trip', function(){
+  if($('.trip.table .select-trip').length === $('.trip.table .select-trip:checked').length) {
     selectAll();
   } else {
     selectSome();
@@ -49,11 +47,22 @@ $('#trips').on('change', '.trip.table input[type="checkbox"]', function(){
 });
 
 
+$('#trips').on('change', '.business-tag', function() {
+  var trip_id = $(this).parents('.trip').data('trip_id');
+  if($(this).is(':checked')) {
+    tagTrip(trip_id, 'business');
+  } else {
+    untagTrip(trip_id, 'business');
+  }
+});
+
+
 $('#csv, #json').click(function() {
-  var exportType = this.id
+  var exportType = this.id;
+  var viewType = sessionStorage.getItem('viewType');
   var href = '/download/trips.' + exportType;
-  if(viewType == 'table') {
-    var trip_ids = $('.trip.table input[type="checkbox"]:checked').map(function() {
+  if(viewType === 'table') {
+    var trip_ids = $('.trip.table .select-trip:checked').map(function() {
       return $(this).parents('.trip').data('trip_id');
     }).get();
 
@@ -69,7 +78,7 @@ function deleteData() {
 
 
 function selectAll() {
-  $('#trips .trip input[type="checkbox"]').each(function(idx, checkbox) {
+  $('#trips .trip .select-trip').each(function(idx, checkbox) {
     $(checkbox).prop('checked', true);
   });
   $('#selectall').prop('checked', true);
@@ -86,24 +95,30 @@ function selectSome() {
 function selectNone() {
   $('#selectall').prop('checked', false);
   $('#export span').text('Export Selected');
-  $('#trips .trip input[type="checkbox"]').each(function(idx, checkbox) {
+  $('#trips .trip .select-trip').each(function(idx, checkbox) {
     $(checkbox).prop('checked', false);
   });
 }
 
 
 function renderTrips() {
+  var viewType = sessionStorage.getItem('viewType') || 'tile';
+
+  $('.display-type [data-type="' + viewType + '"]')
+    .addClass('active')
+    .siblings().removeClass('active');
+
   $('#trips')
     .empty()
     .removeClass()
     .addClass(viewType);
 
-  if(viewType == 'tile') {
+  if(viewType === 'tile') {
     trips.forEach(function(trip) {
       $('#trips').append($(tripTemplate(trip)).data('trip', trip));
     });
     selectAll();
-  } else if(viewType == 'table') {
+  } else if(viewType === 'table') {
     $('#trips').append(tripTableHeader());
 
     trips.forEach(function(trip) {

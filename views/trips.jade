@@ -4,7 +4,7 @@ block content
   .wrapper.content
     #alert.alert
     .btn-group.display-type
-      a.btn.btn-default.active(href="#" data-type="tile") Tiles
+      a.btn.btn-default(href="#" data-type="tile") Tiles
       a.btn.btn-default(href="#" data-type="table") Table
     #refresh.btn.btn-default <i class="glyphicon glyphicon-refresh"></i> Refresh
     #trips
@@ -52,12 +52,13 @@ block scripts
       .distance Dist
       .mpg MPG
       .fuelCost Fuel
+      .business Bus.
 
 
   script(type='text/template' id='tripTable')
     a.trip.table(href="/trips/{{id}}" data-trip_id="{{id}}")
       .select
-        input(type="checkbox" checked="")
+        input.select-trip(type="checkbox" checked="")
       .date {{dayOfWeek}}<br>{{started_at_date}}
       .startTime {{started_at_time}}
       .endTime {{ended_at_time}}
@@ -67,6 +68,7 @@ block scripts
       .distance {{distance}} mi
       .mpg {{average_mpg}}
       .fuelCost ${{fuel_cost_usd}}
+      .business <input type="checkbox" class="business-tag" {{business_tag}} />
 
 
   script(src="/javascripts/trips.js")

@@ -79,6 +79,8 @@ app.get('/redirect/', passport.authenticate('automatic', {failureRedirect: '/'})
 app.get('/api/trips/', routes.ensureAuthenticated, api.trips);
 app.get('/api/trips/:id', routes.ensureAuthenticated, api.trip);
 app.get('/api/vehicles/', routes.ensureAuthenticated, api.vehicles);
+app.post('/api/trips/:id/tag', routes.ensureAuthenticated, api.tagTrip);
+app.delete('/api/trips/:id/tag/:tag', routes.ensureAuthenticated, api.untagTrip);
 
 app.get('/download/trips.csv', routes.ensureAuthenticated, api.downloadTripsCSV);
 app.get('/download/trips.json', routes.ensureAuthenticated, api.trips);
