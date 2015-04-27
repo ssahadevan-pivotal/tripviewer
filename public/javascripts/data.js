@@ -109,8 +109,8 @@ function formatTrip(trip) {
     hard_brakes: trip.hard_brakes || '<i class="glyphicon glyphicon-ok"></i>',
     hard_accels_class: (trip.hard_accels > 0 ? 'someHardAccels' : 'noHardAccels'),
     hard_accels: trip.hard_accels || '<i class="glyphicon glyphicon-ok"></i>',
-    speeding_class: (formatSpeeding(trip.duration_over_70_s) > 0 ? 'someSpeeding' : 'noSpeeding'),
-    speeding: Math.ceil(trip.duration_over_70_s/60) || '<i class="glyphicon glyphicon-ok"></i>',
+    speeding_class: getSpeedingClass(trip.duration_over_70_s),
+    speeding: formatSpeeding(trip.duration_over_70_s),
     fuel_volume_usgal: l_to_usgal(trip.fuel_volume_l)
   });
 }

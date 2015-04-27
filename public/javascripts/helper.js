@@ -37,6 +37,28 @@ function formatDurationHours(s) {
 }
 
 
+function formatSpeeding(s) {
+  if(!s || s < 30) {
+    return '<i class="glyphicon glyphicon-ok"></i>';
+  } else if((s / 60) > 60) {
+    return moment.duration(s, 'seconds').asHours().toFixed(1);
+  } else {
+    return formatDurationMinutes(s);
+  }
+}
+
+
+function getSpeedingClass(s) {
+  if(!s || s < 30) {
+    return 'noSpeeding';
+  } else if((s / 60) > 60) {
+    return 'someSpeedingHours';
+  } else {
+    return 'someSpeedingMinutes';
+  }
+}
+
+
 function m_to_mi(distance_m) {
   return distance_m / 1609.34;
 }
@@ -93,15 +115,10 @@ function formatAddressMultiline(cleaned) {
   var lines = cleaned.split(', ');
 
   if(lines.length > 2) {
-    var first = lines.shift()
+    var first = lines.shift();
     cleaned = first + '<br>' + lines.join(', ');
   }
   return cleaned;
-}
-
-
-function formatSpeeding(sec) {
-  return Math.floor(sec / 60);
 }
 
 

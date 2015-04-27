@@ -11,7 +11,7 @@ body {
 .wrapper.content {
   background: #ffffff;
   padding: 20px;
-  overflow: hidden;
+  min-height: 430px;
 }
 .mainHeader {
   min-width: 924px;
@@ -155,7 +155,6 @@ h2.pageTitle {
 }
 .signin-btn:hover,
 .signin-btn:active {
-  background-image: url("../images/auth_automatic-connect-28-sprite.svg");
   background-position: 0 -32px;
 }
 .signin-learnmore {
@@ -336,6 +335,7 @@ h2.pageTitle {
   font-size: 30px;
   font-weight: bold;
   text-align: right;
+  white-space: nowrap;
 }
 .trip.tile .fuelCost::before {
   content: '$';
@@ -362,6 +362,7 @@ h2.pageTitle {
   text-align: center;
   margin-right: 115px;
   position: relative;
+  padding: 1px;
 }
 .trip.tile .hardBrakes::after {
   content: 'Rough Brakes';
@@ -393,6 +394,7 @@ h2.pageTitle {
   text-align: center;
   margin-right: 115px;
   position: relative;
+  padding: 1px;
 }
 .trip.tile .hardAccels::after {
   content: 'Hard Accels';
@@ -429,19 +431,25 @@ h2.pageTitle {
   position: absolute;
   text-align: left;
   margin-left: 13px;
-  width: 40px;
+  width: 61px;
   color: #777;
 }
-.trip.tile .durationOver70.someSpeeding::after {
+.trip.tile .durationOver70.someSpeedingMinutes::after {
   content: 'Min Over 70 MPH';
   color: #777;
-  width: 44px;
+  width: 61px;
+}
+.trip.tile .durationOver70.someSpeedingHours::after {
+  content: 'Hours Over 70 MPH';
+  color: #777;
+  width: 61px;
 }
 .trip.tile .durationOver70.noSpeeding {
   background: #7fb75c;
   color: #FFF
 }
-.trip.tile .durationOver70.someSpeeding {
+.trip.tile .durationOver70.someSpeedingMinutes,
+.trip.tile .durationOver70.someSpeedingHours {
   color: #FFF;
   background: #fe8c0a;
 }
@@ -458,7 +466,7 @@ h2.pageTitle {
   height: 130px;
   position: absolute;
   right: 50%;
-  top: 250px;
+  top: 275px;
   width: 200px;
   margin-right: -100px;
   border-radius: 4px;
