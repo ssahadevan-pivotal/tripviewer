@@ -2,8 +2,8 @@ var request = require('request'),
     csv = require('express-csv'),
     _ = require('underscore'),
     async = require('async'),
-    helpers = require('../libs/helpers')
-    apiUrl = 'https://api.automatic.com';
+    nconf = require('nconf'),
+    helpers = require('../libs/helpers');
 
 
 exports.trips = function(req, res, next) {
@@ -23,7 +23,7 @@ exports.trips = function(req, res, next) {
 
 exports.trip = function(req, res, next) {
   request.get({
-    uri: apiUrl + '/trip/' + req.params.id,
+    uri: nconf.get('API_URL') + '/trip/' + req.params.id,
     headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true
   }, function(e, r, body) {
@@ -58,7 +58,7 @@ exports.downloadTripsCSV = function(req, res, next) {
 
 
 function downloadAllTrips(req, cb) {
-  var uri = apiUrl + '/trip/',
+  var uri = nconf.get('API_URL') + '/trip/',
       trip_ids = req.query.trip_ids,
       trips;
 
@@ -72,7 +72,7 @@ function downloadAllTrips(req, cb) {
     if(e) return cb(e);
 
     trips = body.results;
-    var count = body['_metadata'] ? body['_metadata'].count : 0,
+    var count = body._metadata ? body._metadata.count : 0,
         pages = _.range(2, (Math.ceil(count / 25) + 1));
 
     if(count <= 25) {
@@ -83,7 +83,9 @@ function downloadAllTrips(req, cb) {
       async.concat(pages, function(page, cb) {
         request.get({
           uri: uri,
-          headers: {Authorization: 'bearer ' + req.user.accessToken},
+          headers: {
+            Authorization: 'bearer ' + req.user.accessToken
+          },
           json: true,
           qs: {
             limit: 25,
@@ -117,9 +119,9 @@ function filterAndSendTrips(trips, trip_ids, cb) {
 }
 
 
-function downloadVehicles (req, cb) {
+function downloadVehicles(req, cb) {
   request.get({
-    uri: apiUrl + '/vehicle/',
+    uri: nconf.get('API_URL') + '/vehicle/',
     headers: {Authorization: 'bearer ' + req.user.accessToken},
     json: true
   }, function(e, r, body) {

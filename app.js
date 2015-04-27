@@ -11,6 +11,8 @@ var AutomaticStrategy = require('passport-automatic').Strategy;
 nconf.env().argv();
 nconf.file('./config.json');
 
+nconf.set('API_URL', 'https://api.automatic.com');
+
 var routes = require('./routes');
 var api = require('./routes/api');
 
