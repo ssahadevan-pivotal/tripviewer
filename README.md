@@ -43,7 +43,7 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
 ### Testing locally, skipping oAuth
 
-You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
+You can test locally as a logged in user, bypassing OAuth by including an `access_token` when running the app.
 
     DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp develop
 
