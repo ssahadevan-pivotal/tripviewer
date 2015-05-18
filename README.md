@@ -68,6 +68,10 @@ Deploy your app to heroku:
 
 See [deploying a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) for more information.
 
+### Support
+
+Please write to developer@automatic.com if you have any questions or need help.
+
 ## License
 
 This project is licensed under the terms of the Apache 2.0 license.
