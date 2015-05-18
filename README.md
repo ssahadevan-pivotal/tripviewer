@@ -41,7 +41,7 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
     localStorage.clear()
 
-### Testing locally, skipping oAuth
+### Testing locally, skipping OAuth
 
 You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
 
