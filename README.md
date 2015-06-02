@@ -8,6 +8,18 @@ Tripviewer is a node.js app that allows users to view and export trips taken usi
 
 A demo version of this application is available at [https://tripviewer.herokuapp.com](https://tripviewer.herokuapp.com).
 
+
+## One-Click deploy to Heroku
+
+Click this button to instantly deploy this app to Heroku. You'll need an [Automatic client ID and secret](http://developer.automatic.com) as well as a [mapbox access token](https://www.mapbox.com/signup/).
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+After deploying, you will need to use the Automatic [Developer Apps Manager](https://developer.automatic.com/my-apps/) to set your application's redirect URL to match the Heroku app name you selected when deploying. For instance, if you name your app `tripviewer-test` in Heroku your redirect URL should be `https://tripviewer-test.herokuapp.com/redirect`. Note that the URL must start with `https`.
+
+
+## Running Locally
+
 ### Install node and gulp
 
     brew install node
@@ -46,27 +58,6 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 You can test locally as a logged in user, bypassing OAuth by including an `access_token` when running the app.
 
     DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp develop
-
-### Deploy to Heroku
-
-If you have the [heroku toolbelt](https://toolbelt.heroku.com/) installed, you can create, configure and deploy this app to Heroku.  To create an app:
-
-    heroku create
-
-If you already created an app, add it as a git remote:
-
-    git remote add heroku YOUR-HEROKU-GIT-URL
-
-Configure the heroku app's environment variables:
-
-    heroku config:add AUTOMATIC_CLIENT_ID="YOUR AUTOMATIC CLIENT ID"
-    heroku config:add AUTOMATIC_CLIENT_SECRET="YOUR AUTOMATIC CLIENT SECRET"
-
-Deploy your app to heroku:
-
-    git push heroku master
-
-See [deploying a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) for more information.
 
 ### Support
 
