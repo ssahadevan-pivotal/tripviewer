@@ -41,9 +41,9 @@ Trips are cached in the browser using localstorage. To clear that, open the deve
 
     localStorage.clear()
 
-### Testing locally, skipping oAuth
+### Testing locally, skipping OAuth
 
-You can test locally as a logged in user, bypassing oAuth by including an `access_token` when running the app.
+You can test locally as a logged in user, bypassing OAuth by including an `access_token` when running the app.
 
     DEBUG=tripviewer TOKEN=YOUR-AUTOMATIC-ACCESS-TOKEN gulp develop
 
@@ -67,6 +67,10 @@ Deploy your app to heroku:
     git push heroku master
 
 See [deploying a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) for more information.
+
+### Support
+
+Please write to developer@automatic.com if you have any questions or need help.
 
 ## License
 
