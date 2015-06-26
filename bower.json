@@ -16,10 +16,10 @@
     "bootstrap": "~3.3.4",
     "d3": "~3.5.5",
     "jquery": "~2.1.4",
-    "mapbox.js": "~2.1.9",
+    "mapbox.js": "~2.2.1",
     "moment": "~2.10.2",
     "moment-timezone": "~0.4.0",
-    "polyline": "https://github.com/mapbox/polyline.git#365ed8b1c4507404b5e0d440ebe27417e48edeb0",
+    "polyline": "0.1.0",
     "underscore": "~1.8.3",
     "three.js": "~0.71.0"
   }
